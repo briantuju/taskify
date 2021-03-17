@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-// import { useAuth } from "../context/auth";
-// import { Storage } from "../utils/helpers";
+import { useAuth } from "../context/auth";
+import { AppStorage } from "../utils/helpers";
 import { pageUrls } from "../utils/constants";
 import logo from "../logo.png";
 
 const Header = () => {
-  // const { authToken, setAuthToken } = useAuth();
+  const { authToken, setAuthToken } = useAuth();
 
-  // const handleLogout = () => {
-  //   Storage.removeAuthToken();
-  //   setAuthToken(null);
-  // };
+  const handleLogout = () => {
+    AppStorage.removeAuthToken();
+    setAuthToken(null);
+  };
 
   return (
     <>
@@ -30,18 +30,7 @@ const Header = () => {
 
           {/* Nav List */}
           <ul className="nav__list">
-            <li className="nav__item">
-              <Link className="nav__link" to={pageUrls.signup}>
-                Signup
-              </Link>
-            </li>
-            <li className="nav__item">
-              <Link className="nav__link" to={pageUrls.login}>
-                Login
-              </Link>
-            </li>
-
-            {/* {authToken ? (
+            {authToken ? (
               <>
                 <li className="nav__item">
                   <Link className="nav__link" to={pageUrls.account}>
@@ -67,7 +56,7 @@ const Header = () => {
                   </Link>
                 </li>
               </>
-            )} */}
+            )}
           </ul>
         </nav>
       </header>
