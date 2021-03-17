@@ -59,6 +59,9 @@ export const api = {
   },
 };
 
+/**
+ * Actions that indicate what just happened
+ */
 export const actions = {
   api: {
     start: "FETCH_START",
