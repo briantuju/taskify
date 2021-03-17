@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Consume external script files using hooks
+ * @param {String} src
+ */
 const useScript = (src) => {
   // Keep track of script status ("idle", "loading", "ready", "error")
   const [status, setStatus] = useState(src ? "loading" : "idle");
