@@ -41,10 +41,10 @@ export class DateTime {
 }
 
 /**
- * Helper class to access the browser's storage
+ * Helper class to work with the application storage
  * @access public
  */
-export class Storage {
+export class AppStorage {
   /**
    * Save item to local storage
    * @param {String} key

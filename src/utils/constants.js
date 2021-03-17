@@ -52,6 +52,19 @@ export const api = {
   keys: {
     stripePublishableKey: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY,
   },
+
+  // Getter for baseUrl
+  get baseUrl() {
+    return `${this.url}${this.version}`;
+  },
+};
+
+export const actions = {
+  api: {
+    start: "FETCH_START",
+    success: "FETCH_OKAY",
+    fail: "FETCH_FAIL",
+  },
 };
 
 /**
