@@ -77,3 +77,21 @@ export const scriptUrls = {
   ioniconsUrl: "https://unpkg.com/ionicons@5.2.3/dist/ionicons.js",
   stripeJsUrl: "https://js.stripe.com/v3/",
 };
+
+/**
+ * Months of the year
+ */
+export const months = {
+  jan: "January",
+  feb: "February",
+  mar: "March",
+  apr: "April",
+  may: "May",
+  jun: "June",
+  jul: "July",
+  aug: "August",
+  sep: "September",
+  oct: "October",
+  nov: "November",
+  dec: "December",
+};
