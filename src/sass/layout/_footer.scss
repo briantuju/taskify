@@ -1,0 +1,44 @@
+@use '../abstracts/variables';
+
+.footer {
+  padding: 3rem 0;
+  background-color: variables.$color-dark;
+
+  *:not(a) {
+    color: lighten($color: variables.$color-grey-dark, $amount: 25);
+  }
+
+  &__copyright {
+    margin: 1rem 0;
+  }
+
+  &__col {
+    margin-bottom: 1.4rem;
+  }
+
+  &__logo {
+    display: block;
+    width: 3.5rem;
+    height: 3rem;
+    img {
+      height: 100%;
+    }
+  }
+
+  &__summary {
+    margin: 1rem 0;
+  }
+
+  &__link {
+    display: block;
+    margin: 0.75rem 0;
+    width: max-content;
+  }
+
+  &__subtitle {
+    color: variables.$color-white;
+    font-weight: normal;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+}

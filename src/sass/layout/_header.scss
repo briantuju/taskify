@@ -1,0 +1,155 @@
+@use '../abstracts/variables';
+
+// Header
+.header {
+  background-color: variables.$color-white;
+  box-shadow: variables.$shadow;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  padding: 1rem;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: variables.$color-white;
+  }
+}
+
+// Navigation
+.nav {
+  // Nav brand
+  &__brand {
+    display: block;
+    float: left;
+    text-decoration: none;
+    height: 3.5rem;
+    width: 2rem;
+    margin-top: 0.75rem;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  // Nav toggler
+  &__toggler {
+    display: none;
+
+    &:hover {
+      background-color: variables.$color-grey-light;
+    }
+  }
+
+  // Nav list
+  &__list {
+    clear: both;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+  }
+
+  // Nav link
+  &__link {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: variables.$color-grey-light;
+    }
+  }
+
+  // Nav icon
+  &__icon {
+    // Nav icon label
+    &--label {
+      cursor: pointer;
+      float: right;
+      padding: 2rem 0;
+      position: relative;
+      user-select: none;
+    }
+
+    // Nav icon span
+    &--span {
+      background: variables.$color-primary;
+      display: block;
+      height: 2px;
+      position: relative;
+      transition: background 0.2s ease-out;
+      width: 1.5rem;
+
+      // Nav icon span (before and after)
+      &:before,
+      &:after {
+        background: variables.$color-primary;
+        content: "";
+        display: block;
+        height: 100%;
+        position: absolute;
+        transition: all 0.2s ease-out;
+        width: 100%;
+      }
+
+      &:before {
+        top: 0.5rem;
+      }
+      &:after {
+        top: -0.5rem;
+      }
+    }
+  }
+
+  // Nav toggle (pseudo states)
+  &__toggler:checked ~ &__list {
+    max-height: 20rem;
+  }
+
+  &__toggler:checked ~ &__icon--label &__icon--span {
+    background: transparent;
+
+    &:before {
+      transform: rotate(-45deg);
+    }
+    &:after {
+      transform: rotate(45deg);
+    }
+  }
+
+  &__toggler:checked ~ &__icon--label:not(.steps) &__icon--span {
+    &:before,
+    &:after {
+      top: 0;
+    }
+  }
+}
+
+@media screen and (min-width: variables.$tablet) {
+  .nav {
+    // Nav item
+    &__item {
+      float: left;
+    }
+
+    // Nav link
+    &__link {
+      padding: 1.5rem;
+    }
+
+    // Nav list
+    &__list {
+      clear: none;
+      float: right;
+      max-height: none;
+    }
+
+    // Nav icon label
+    &__icon--label {
+      display: none;
+    }
+  }
+}

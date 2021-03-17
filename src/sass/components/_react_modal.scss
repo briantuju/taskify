@@ -1,0 +1,28 @@
+@use '../abstracts/variables';
+
+.react-modal {
+  position: absolute;
+  top: variables.$react-modal-top;
+  left: 1rem;
+  right: 1rem;
+  max-height: 75vh;
+  overflow: auto;
+  background-color: variables.$color-white;
+  padding: .5rem;
+  transform: translateY(variables.$react-modal-top);
+}
+
+// Media Queries - Tablet
+@media (min-width: variables.$tablet) {
+  .react-modal {
+    position: absolute;
+    top: variables.$react-modal-top;
+    left: 50%;
+    max-height: 75vh;
+    overflow: auto;
+    background-color: variables.$color-white;
+    padding: 2rem;
+    transform: translate(-50%, variables.$react-modal-top);
+  }
+}
+

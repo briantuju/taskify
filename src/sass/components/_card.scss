@@ -1,0 +1,29 @@
+@use '../abstracts/variables';
+
+// Custom card component styles
+.card {
+  display: block;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+
+  &__img {
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+    border-bottom: 1px solid variables.$color-grey-light;
+  }
+
+  &__body {
+    padding: 1.25rem;
+  }
+
+  &__footer {
+    padding: 1rem;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+    outline: 1px solid variables.$color-grey-light;
+  }
+}

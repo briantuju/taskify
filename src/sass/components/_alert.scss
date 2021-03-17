@@ -1,0 +1,55 @@
+@use '../abstracts/variables';
+
+.alert {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: variables.$brad-small;
+  padding: 0.5rem 1rem;
+  box-shadow: variables.$shadow-small;
+  font-weight: bold;
+
+  ul {
+    li {
+      padding: 0.5rem 0;
+    }
+  }
+
+  &--dismissible {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    padding: 1rem;
+    border-radius: variables.$brad-tiny;
+    background-color: variables.$color-white;
+    box-shadow: variables.$shadow-big;
+    z-index: 99;
+
+    .close-alert {
+      margin-left: 1rem;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      height: 100%;
+      width: .2rem;
+      background-color: variables.$color-success;
+    }
+  }
+}
+
+// Media Queries
+@media screen and (min-width: variables.$tablet) {
+  .alert-dismissible {
+    padding: 1.25rem;
+    top: 2.5rem;
+    right: 2.5rem;
+  }
+}

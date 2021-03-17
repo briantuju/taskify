@@ -1,0 +1,125 @@
+@use '../abstracts/variables';
+
+// Form
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: variables.$brad-small;
+  background-color: transparent;
+
+  // Form title
+  &__title {
+    font-weight: 700;
+  }
+
+  // Form input
+  &__input {
+    padding: 1rem 0.5rem;
+    color: variables.$color-grey-dark;
+    font-size: variables.$default-font-size;
+    width: 100%;
+    border-radius: variables.$brad-tiny;
+    outline: none;
+
+    &--edit {
+      @extend .form__input;
+      border: 2px solid transparent;
+      background-color: lighten(
+        $color: variables.$color-grey-light,
+        $amount: 5
+      );
+
+      &:hover {
+        border-color: variables.$color-grey-light;
+      }
+
+      &:focus {
+        border-color: variables.$color-grey-dark;
+        background-color: variables.$color-white;
+      }
+    }
+
+    &--show-pwd {
+      margin-right: 1rem;
+    }
+
+    &:focus,
+    &:active {
+      border-color: variables.$color-dark;
+    }
+  }
+
+  // Form group
+  &__group {
+    margin: 0.5rem 0;
+  }
+
+  // Form label
+  &__label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+
+  // Form textarea
+  // &__textarea {
+  // }
+
+  // Form checkbox
+  &__checkbox {
+    margin-right: 1rem;
+  }
+
+  // Form select
+  // &__select {
+  // }
+
+  // Form button
+  & > *.btn {
+    width: max-content;
+    margin: .75rem 0;
+  }
+
+  // Form variants
+  &--shadow {
+    @extend .form;
+    box-shadow: variables.$shadow;
+
+    &-big {
+      @extend .form;
+      box-shadow: variables.$shadow-big;
+    }
+  }
+
+  &--p-2 {
+    @extend .form;
+    padding: 2rem;
+  }
+
+  &--p-tiny {
+    @extend .form;
+    padding: .5rem;
+  }
+
+  &--m-2 {
+    @extend .form;
+    margin: 2rem 0;
+  }
+
+  &--m-tiny {
+    @extend .form;
+    margin: .5rem 0;
+  }
+
+  &--center {
+    // align-items: center;
+    margin: 2rem auto;
+    max-width: 500px;
+
+    & > *.btn {
+      width: 100%;
+    }
+  }
+}

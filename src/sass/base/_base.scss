@@ -1,0 +1,51 @@
+@use '../abstracts/variables';
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+::placeholder {
+  /* Most modern browsers support this now. */
+  color: darken($color: variables.$color-grey-light, $amount: 25);
+}
+
+html {
+  /*
+  Assuming the default font size is 16px, 
+  and we want to set default font to 10px, 
+  we get 10 / 16 = 0.625. Then multiply by 100
+  */
+  font-size: 75%;
+  scroll-behavior: smooth;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: variables.$color-link;
+}
+
+small {
+  font-size: 1.25rem;
+}
+
+main {
+  margin-top: variables.$margin-top-main;
+}
+
+// Media Queries
+@media screen and (min-width: variables.$tablet) {
+  html {
+    font-size: 62.5%;
+  }
+}

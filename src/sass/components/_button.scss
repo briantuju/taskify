@@ -1,0 +1,85 @@
+@use '../abstracts/variables';
+
+// Button styles
+.btn {
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 1.25rem 2rem;
+  border: variables.$border-small;
+  border-radius: variables.$brad-small;
+  color: variables.$color-white;
+  background-color: variables.$color-primary;
+  transition: all 0.2s ease-out;
+
+  &--size {
+    &-tiny {
+      padding: 0.5rem;
+      text-transform: capitalize;
+      font-weight: 500;
+      letter-spacing: 0.075rem;
+      border-radius: variables.$brad-tiny;
+    }
+
+    &-small {
+      @extend .btn--size-tiny;
+      padding: 1rem 1.25rem;
+    }
+
+    &-big {
+      font-size: 2rem;
+      margin: 2rem 0;
+    }
+  }
+
+  &--variant {
+    &-white {
+      background-color: variables.$color-white;
+      color: variables.$color-grey-dark;
+    }
+
+    &-black {
+      background-color: variables.$color-black;
+      color: variables.$color-grey-light;
+    }
+
+    &-success {
+      background-color: variables.$color-success;
+      color: variables.$color-white;
+    }
+
+    &-danger {
+      background-color: variables.$color-red;
+      color: variables.$color-white;
+    }
+
+    &-info {
+      background-color: variables.$color-info;
+      color: variables.$color-white;
+    }
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: variables.$shadow-small;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: variables.$color-grey-dark;
+    background-color: rgba($color: variables.$color-grey-light, $alpha: 0.7);
+  }
+}
+
+// Disable elements with [data-disabled="true"]
+[data-disabled="true"] {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: variables.$color-grey-dark;
+  background-color: rgba($color: variables.$color-grey-light, $alpha: 0.7);
+}

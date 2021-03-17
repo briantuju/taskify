@@ -1,0 +1,30 @@
+// Typography
+@use '../abstracts/variables';
+
+body {
+  font-family: "Lato", sans-serif;
+  font-size: variables.$default-font-size;
+  color: variables.$color-grey-dark;
+  background-color: variables.$color-white;
+  box-sizing: border-box;
+  line-height: 1.7;
+  height: 100%;
+}
+
+.h1 {
+  text-transform: uppercase;
+  font-weight: lighter;
+  letter-spacing: 0.2rem;
+}
+
+.h2 {
+  text-transform: uppercase;
+  font-weight: lighter;
+  letter-spacing: 0.15rem;
+}
+
+.h3 {
+  text-transform: uppercase;
+  font-weight: normal;
+  letter-spacing: 0.1rem;
+}

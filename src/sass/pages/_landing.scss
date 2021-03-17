@@ -1,0 +1,145 @@
+@use '../abstracts/variables';
+
+// Style for h1 on landing page
+.h1-landing {
+  font-weight: 100;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.2rem;
+  background-color: lighten($color: variables.$color-grey-dark, $amount: 50);
+  padding: 1rem;
+  margin: 2rem 0;
+}
+
+// Hero Section
+.hero-section {
+  color: variables.$color-white;
+
+  &__image {
+    position: relative;
+    height: 95vh;
+    background-image: linear-gradient(
+        rgba(variables.$color-black, 0.9),
+        rgba(variables.$color-black, 0.9)
+      ),
+      url("./hero-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__content {
+    position: absolute;
+    top: 20%;
+    left: 2rem;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    letter-spacing: 0.15rem;
+  }
+
+  &__subtitle {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    max-width: 75%;
+  }
+
+  &__btn-cta {
+    padding: 0.75rem 1rem;
+    font-size: 2rem;
+    color: variables.$color-white;
+    background-color: variables.$color-primary;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 3rem;
+    border-radius: variables.$brad-tiny;
+    transition: 0.2s ease-in-out;
+
+    &-small {
+      display: block;
+      margin: 2rem 0;
+      background-color: variables.$color-white;
+      padding: 0.25rem 0.5rem;
+      border-radius: variables.$brad-tiny;
+      width: max-content;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(0.95);
+      }
+    }
+
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+}
+
+// Features Section
+.featured-section {
+  margin: 3rem 0;
+}
+
+// CTA Landing Section
+.cta-landing-section {
+  margin: 4rem 0;
+
+  &__banner {
+    padding: 1rem;
+    margin-top: 2rem;
+    border-radius: variables.$brad-big;
+    box-shadow: variables.$shadow;
+    background-color: variables.$color-grey-light;
+  }
+}
+
+@media screen and (min-width: variables.$tablet) {
+  .h1-landing {
+    padding: 2rem 1rem;
+  }
+
+  .hero-section {
+    text-align: center;
+
+    &__content {
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &__title {
+      font-size: 4rem;
+      letter-spacing: 0.2rem;
+    }
+
+    &__subtitle {
+      font-size: 1.75rem;
+      margin: 1rem 0;
+      max-width: 100%;
+    }
+
+    &__btn {
+      padding: 1rem 1.25rem;
+      font-size: 2.5rem;
+
+      &-cta-small {
+        margin: 2rem auto;
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+
+  .cta-landing-section {
+    &__banner {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media screen and (min-width: variables.$desktop) {
+  .hero-section {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 50% 92vh, 0 75vh);
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 50% 92vh, 0 75vh);
+  }
+}

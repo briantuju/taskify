@@ -1,0 +1,483 @@
+@use '../abstracts/variables';
+
+// Shadows
+.shadow {
+  box-shadow: variables.$shadow;
+
+  // Shadow modifiers
+  &--small {
+    box-shadow: variables.$shadow-small;
+  }
+
+  &--big {
+    box-shadow: variables.$shadow-big;
+  }
+
+  &--none {
+    box-shadow: none;
+  }
+}
+
+// Border
+.border {
+  border: variables.$border-small;
+
+  // Border modifiers
+  &--danger {
+    border-color: variables.$color-red;
+  }
+
+  &--success {
+    border-color: variables.$color-success;
+  }
+}
+
+// Border radius
+.brad {
+  border-radius: variables.$brad-small;
+
+  &--tiny {
+    border-radius: variables.$brad-tiny;
+  }
+
+  &--medium {
+    border-radius: variables.$brad-medium;
+  }
+
+  &--big {
+    border-radius: variables.$brad-big;
+  }
+
+  &--huge {
+    border-radius: variables.$brad-huge;
+  }
+}
+
+// Outline
+.outline {
+  outline: 1px solid variables.$color-grey-light;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+// Text
+.text {
+  // Text modifiers
+  &--bold {
+    font-weight: 900;
+  }
+
+  &--italic {
+    font-style: italic;
+  }
+
+  &--underline {
+    text-decoration: underline;
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &--white {
+    color: variables.$color-white;
+  }
+
+  &--light {
+    color: variables.$color-grey-light;
+  }
+
+  &--dark {
+    color: rgba(variables.$color-black, 0.8);
+  }
+
+  &--success {
+    color: variables.$color-success;
+  }
+
+  &--danger {
+    color: variables.$color-red;
+  }
+
+  &--warn {
+    color: variables.$color-warn;
+  }
+
+  &--info {
+    color: variables.$color-info;
+  }
+}
+
+// Background
+.bg {
+  // Background modifiers
+  &--light {
+    background-color: lighten($color: variables.$color-grey-dark, $amount: 50);
+  }
+
+  &--primary {
+    background-color: variables.$color-primary;
+  }
+
+  &--white {
+    background-color: variables.$color-white;
+  }
+
+  &--dark {
+    background-color: rgba(variables.$color-black, 0.8);
+  }
+
+  &--success {
+    background-color: variables.$color-success;
+
+    &-light {
+      background-color: variables.$color-success-light;
+    }
+    &-dark {
+      background-color: variables.$color-success-dark;
+    }
+  }
+
+  &--danger {
+    background-color: variables.$color-red;
+  }
+
+  &--warn {
+    background-color: variables.$color-warn;
+  }
+
+  &--info {
+    background-color: variables.$color-info;
+  }
+}
+
+// Layout
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+// Width
+.w {
+  // Width modifiers
+  &--max {
+    width: max-content;
+  }
+
+  &--min {
+    width: min-content;
+  }
+
+  &--100 {
+    width: 100%;
+  }
+
+  &--50 {
+    width: 50%;
+  }
+
+  &--vw-25 {
+    width: 25vw;
+  }
+
+  &--vw-50 {
+    width: 50vw;
+  }
+
+  &--vw-75 {
+    width: 75vw;
+  }
+
+  &--vw-100 {
+    width: 100vw;
+  }
+}
+
+// Height
+.h {
+  &--max {
+    height: max-content;
+  }
+
+  &--min {
+    height: min-content;
+  }
+
+  &--100 {
+    height: 100%;
+  }
+
+  &--50 {
+    height: 50%;
+  }
+
+  &--vh-25 {
+    height: 25vh;
+  }
+
+  &--vh-50 {
+    height: 50vh;
+  }
+
+  &--vh-75 {
+    height: 75vh;
+  }
+
+  &--vh-100 {
+    height: 100vh;
+  }
+}
+
+// Display
+.d {
+  // Display modifiers
+  &--block {
+    display: block;
+  }
+
+  &--i-block {
+    display: inline-block;
+  }
+
+  &--none {
+    display: none !important;
+  }
+
+  &--flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    &-center {
+      @extend .d--flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+  }
+}
+
+// Margin
+.m {
+  &--auto {
+    margin: auto;
+  }
+
+  &--tiny {
+    margin: .5rem;
+  }
+
+  &--x-tiny {
+    margin: 0 .5rem;
+  }
+
+  &--y-tiny {
+    margin: .5rem 0;
+  }
+
+  &--0 {
+    margin: 0;
+  }
+
+  &--1 {
+    margin: 1rem;
+  }
+
+  &--2 {
+    margin: 2rem;
+  }
+
+  &--y-1 {
+    margin: 1rem 0;
+  }
+
+  &--y-2 {
+    margin: 2rem 0;
+  }
+
+  &--x-1 {
+    margin: 0 1rem;
+  }
+
+  &--x-2 {
+    margin: 0 2rem;
+  }
+}
+
+// Padding
+.p {
+  &--0 {
+    padding: 0;
+  }
+  
+  &--tiny {
+    padding: .5rem;
+  }
+
+  &--x-tiny {
+    padding: 0 .5rem;
+  }
+
+  &--y-tiny {
+    padding: .5rem 0;
+  }
+
+  &--1 {
+    padding: 1rem;
+  }
+
+  &--2 {
+    padding: 2rem;
+  }
+
+  &--y-1 {
+    padding: 1rem 0;
+  }
+
+  &--y-2 {
+    padding: 2rem 0;
+  }
+
+  &--x-1 {
+    padding: 0 1rem;
+  }
+
+  &--x-2 {
+    padding: 0 2rem;
+  }
+}
+
+// Click event
+.click {
+  &--cursor {
+    cursor: pointer;
+  }
+
+  &--none {
+    pointer-events: none;
+  }
+
+  &--not-allowed {
+    cursor: not-allowed;
+  }
+}
+
+// Overflow
+.ov {
+  &--scroll {
+    overflow: scroll;
+  }
+
+  &--auto {
+    overflow: auto;
+  }
+}
+
+// Link styles
+.link {
+  @extend .brad, .p--tiny, .shadow, .d--i-block, .m--y-1;
+  transition: all .2s ease-in-out;
+
+  &--disabled {
+    @extend .click--not-allowed;
+    // cursor: not-allowed;
+    color: variables.$color-grey-dark;
+    background-color: rgba($color: variables.$color-grey-light, $alpha: 0.7);
+  }
+
+  &--white {
+    @extend .link;
+    background-color: variables.$color-white;
+  }
+
+  &--info {
+    @extend .link;
+    background-color: variables.$color-info;
+    color: variables.$color-white;
+  }
+
+  &--success {
+    @extend .link;
+    background-color: variables.$color-success-dark;
+    color: variables.$color-white;
+  }
+
+  &--none {
+    @extend .click--none;
+  }
+
+  &:hover{
+    box-shadow: none;
+  }
+}
+
+// Custom checkbox
+.check {
+  cursor: pointer;
+
+  &__input {
+    display: none;
+
+    &:checked ~ .check__fill {
+      background-color: variables.$color-info;
+
+      &::after {
+        transform: translateX(variables.$check-height);
+      }
+    }
+  }
+
+  &__fill {
+    position: relative;
+    width: variables.$check-width;
+    height: variables.$check-height;
+    border-radius: variables.$check-border-radius;
+    background-color: variables.$color-grey-light;
+    transition: background 0.2s;
+    margin: 0.25rem 1rem 0 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: variables.$check-height;
+      height: variables.$check-height;
+      background-color: variables.$color-white;
+      box-shadow: variables.$shadow-small;
+      border-radius: variables.$check-border-radius;
+    }
+  }
+}
+
+// Floats
+.float {
+  &--left {
+    float: left;
+  }
+
+  &--right {
+    float: right;
+  }
+
+  &--clear {
+    clear: both;
+  }
+}
+
+// Media Queries - Tablet
+@media (min-width: variables.$tablet) {
+  .container {
+    width: 90%;
+  }
+}
+
+// Media Queries - Desktop
+@media (min-width: variables.$desktop) {
+  .container {
+    width: 80%;
+  }
+}
