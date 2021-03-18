@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
-import { actions as fetchActions, api } from "../utils/constants";
-import { AppStorage } from "../utils/helpers";
+import { actions as fetchActions } from "../utils/constants";
+import { configureAxios } from "../utils/api";
 
 // Destructure individual actions from api actions
 const {
@@ -49,38 +49,20 @@ const dataFetchReducer = (state, action) => {
 };
 
 /**
- * This helper function loads the `token` from `localStorage`
- * and then sets the _defaults_ for **axios** library.
- *
- * @access private
- */
-const configureAxios = () => {
-  // Get auth token from app storage
-  const token = AppStorage.getAuthToken() || "";
-
-  // Set defaults for base url and headers
-  axios.defaults.baseURL = api.baseUrl;
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  axios.defaults.headers.post["Content-Type"] =
-    "application/x-www-form-urlencoded";
-};
-
-/**
  * Fetch api data using **axios** library.
  *
  * Actions are dispatched based on the return value of axios fetch
  * @param {String} initialEndpoint
- * @param {*} initialData
- * @param {String} method
  * @param {*} apiData
+ * @param {String} method
+ * @param {*} initialData
  * @access public
  */
-
 const useApi = (
   initialEndpoint,
-  initialData = null,
+  apiData = null,
   method = "get",
-  apiData = null
+  initialData = null
 ) => {
   // Always call configureAxios to get the latest values
   configureAxios();
@@ -149,14 +131,6 @@ const useApi = (
     };
   }, [apiData, endpoint, method]);
 
-  /* 
-    The data being consumed is in the state in this form:
-      {
-        error: Boolean,
-        loading: Boolean,
-        data: any*,
-      }
-  */
   return [state, setEndpoint];
 };
 

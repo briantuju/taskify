@@ -15,6 +15,7 @@ dayjs.tz.setDefault(dayjs.tz.guess());
 
 /**
  * Helper class to work with date and time
+ * @access public
  */
 export class DateTime {
   /**
