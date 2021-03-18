@@ -1,52 +1,6 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
-import { actions as fetchActions } from "../utils/constants";
+import { useEffect, useState } from "react";
 import { configureAxios } from "../utils/api";
-
-// Destructure individual actions from api actions
-const {
-  api: { fail, start, success },
-} = fetchActions;
-
-/**
- * It returns a `state` object and a `dispatch` function
- * to alter the state object.
- *
- * The `dispatch` function takes an `action`
- * which has a **mandatory `type`** and an _optional_ `payload`.
- *
- * All this information is used in the actual `reducer` function
- * to distill a new `state` from the previous `state`
- *
- * @access private
- */
-const dataFetchReducer = (state, action) => {
-  /* 
-    A reducer function has access to the current `state` 
-    and the incoming `action` via its arguments
-  */
-  switch (action.type) {
-    // Fetch initialized
-    case start:
-      return { ...state, loading: true, error: false };
-
-    // Fetch fails
-    case fail:
-      return { ...state, loading: false, error: true };
-
-    // Fetch succeeds
-    case success:
-      return {
-        ...state,
-        loading: false,
-        error: false,
-        data: action.payload,
-      };
-
-    default:
-      throw new Error();
-  }
-};
 
 /**
  * Fetch api data using **axios** library.
@@ -69,13 +23,11 @@ const useApi = (
 
   // Component State
   const [endpoint, setEndpoint] = useState(initialEndpoint);
-
-  // Handle related states using a reducer
-  const [state, dispatch] = useReducer(dataFetchReducer, {
-    error: false,
-    loading: false,
-    data: initialData,
-  });
+  const [data, setData] = useState(initialData);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [status, setStatus] = useState(null);
+  const [msg, setMsg] = useState(null);
 
   // Handle data fetching using hooks
   useEffect(() => {
@@ -91,18 +43,19 @@ const useApi = (
     let didCancel = false;
 
     /**
-     * Helper to make api calls and update state using `dispatch`
+     * Helper to make api calls and update state
      */
     const fetchApiData = async () => {
       /* 
-        When fetching data, the `dispatch` function can be used 
-        to send information to the `reducer` function.
-
-        The object being sent with the `dispatch` function 
-        has a mandatory `type` property and an optional `payload` 
-        property.
+        `error` is always false and only gets updated if there
+        was an error during the api call.
+        Other states (data, status, msg) always depends on the
+        outcome of the api call.
       */
-      dispatch({ type: start });
+      setError(false);
+      setLoading(true);
+      setStatus(null);
+      setMsg(null);
 
       try {
         const result = await axios({
@@ -111,16 +64,40 @@ const useApi = (
           data: apiData,
         });
 
-        // Dispatch only if it wasn't cancelled
+        // Update states only if didCancel is false
         if (!didCancel) {
-          dispatch({ type: success, payload: result });
+          setData(result.data);
+          setStatus(result.status);
+          setMsg(result.data.msg || result.statusText);
         }
       } catch (error) {
-        // Dispatch only if it wasn't cancelled
+        // Update states only if didCancel is false
         if (!didCancel) {
-          dispatch({ type: fail });
+          setError(true);
+
+          // Error out of 2xx range
+          if (error.response) {
+            setData(error.response.data);
+            setStatus(error.response.status);
+            setMsg(error.response.data.msg || error.response.statusText);
+          } else if (error.request) {
+            // Error as a result of no response
+            setData(error.response.data);
+            setStatus(500);
+            setMsg("ERROR: No response was received from this request!");
+          } else {
+            // Unknown Error
+            setData(null);
+            setStatus(500);
+            setMsg(
+              "ERROR: This request could not be completed due to unknown error!"
+            );
+          }
         }
       }
+
+      // Loading is always false after api call irregardless of the result
+      setLoading(false);
     };
 
     fetchApiData();
@@ -131,7 +108,7 @@ const useApi = (
     };
   }, [apiData, endpoint, method]);
 
-  return [state, setEndpoint];
+  return [{ loading, data, status, msg, error }, setEndpoint];
 };
 
 export default useApi;
