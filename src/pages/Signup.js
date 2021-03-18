@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Formik, Form } from "formik";
 import { Link, Redirect } from "react-router-dom";
 import { endpoints, pageUrls } from "../utils/constants";
-// import { getApiErrorMsg, useApi } from "../utils/api";
 import { useAuth } from "../context/auth";
+import { fetchData } from "../utils/api";
 import schemas, { objSchema } from "../utils/schemas";
 import Alerts from "../components/Alerts";
 import Button from "../components/formik/Button";
@@ -12,14 +13,23 @@ const Signup = () => {
   // Get auth state
   const { authToken, setAuthToken } = useAuth();
 
-  // Fetch API data
-  // const { error, refetch } = useApi(endpoints.signup, null, "POST", true);
+  // Component state
+  const [error, setError] = useState({ exists: false, msg: null });
 
   // Handle signup
   const handleSignup = async (values) => {
-    // const { data } = await refetch({ data: values });
+    setError({ ...error, exists: false, msg: null });
+
+    // Make a signup request to the server
+    const { data, msg, status, failed } = await fetchData(
+      endpoints.signup,
+      values,
+      "POST"
+    );
+    setError({ ...error, exists: failed, msg });
+
     // Update the auth state with authToken
-    // if (data.success === true) setAuthToken(data.data.authToken);
+    if (status === 201) setAuthToken(data.data.authToken);
   };
 
   // Redirect if there's authToken
@@ -60,7 +70,7 @@ const Signup = () => {
               placeholder="Password"
             />
 
-            {/* {error && <Alerts messages={getApiErrorMsg(error)} type="danger" />} */}
+            {error.exists && <Alerts messages={error.msg} type="danger" />}
 
             <Button
               type="submit"
