@@ -1,35 +1,40 @@
+import { useState } from "react";
 import { Form, Formik } from "formik";
 import { Link, useLocation, Redirect } from "react-router-dom";
 import { endpoints, pageUrls } from "../utils/constants";
-// import { getApiErrorMsg, useApi } from "../utils/api";
 import { useAuth } from "../context/auth";
-import { AppStorage } from "../utils/helpers";
+import { fetchData } from "../utils/api";
 import schemas, { objSchema } from "../utils/schemas";
-import Alerts from "../components/Alerts";
-import Button from "../components/formik/Button";
-import TextInput from "../components/formik/TextInput";
 import CheckBoxInput from "../components/formik/CheckBoxInput";
+import TextInput from "../components/formik/TextInput";
+import Button from "../components/formik/Button";
+import Alerts from "../components/Alerts";
 
 const Login = () => {
-  // TODO: Keep the form disabled while getting the CSRF token
-  // from server then enable form submission
-  const location = useLocation();
-  const { from } = location.state || { from: { pathname: pageUrls.home } };
-
   // Get auth state
   const { authToken, setAuthToken } = useAuth();
 
-  // Fetch API data
-  // const { error, refetch } = useApi(endpoints.login, null, "POST", true);
+  // Use location object for redirects
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: pageUrls.home } };
+
+  // Component state
+  const [error, setError] = useState({ exists: false, msg: null });
 
   // Handle login
   const handleLogin = async (values) => {
-    // const { data } = await refetch({ data: values });
+    setError({ ...error, exists: false, msg: null });
+
+    // Make a signup request to the server
+    const { data, msg, status, failed } = await fetchData(
+      endpoints.login,
+      values,
+      "POST"
+    );
+    setError({ ...error, exists: failed, msg });
+
     // Update auth state if login request was successfull
-    /* if (data.success === true) {
-      Storage.setJwtToken(data.data.authToken);
-      setAuthToken(data.data.authToken);
-    } */
+    if (status === 200) setAuthToken(data.data.authToken);
   };
 
   // Redirect if there's authToken
@@ -63,7 +68,7 @@ const Login = () => {
 
             <CheckBoxInput name="remember">Stay logged in</CheckBoxInput>
 
-            {/* {error && <Alerts messages={getApiErrorMsg(error)} type="danger" />} */}
+            {error.exists && <Alerts messages={error.msg} type="danger" />}
 
             <Button
               type="submit"
