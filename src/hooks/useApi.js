@@ -9,21 +9,21 @@ import { configureAxios } from "../utils/api";
  * @param {String} initialEndpoint
  * @param {*} apiData
  * @param {String} method
- * @param {*} initialData
+ * @param {String} query
  * @access public
  */
 const useApi = (
   initialEndpoint,
   apiData = null,
   method = "get",
-  initialData = null
+  query = null
 ) => {
   // Always call configureAxios to get the latest values
   configureAxios();
 
   // Component State
   const [endpoint, setEndpoint] = useState(initialEndpoint);
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [status, setStatus] = useState(null);
@@ -59,7 +59,7 @@ const useApi = (
 
       try {
         const result = await axios({
-          url: `/${endpoint}`,
+          url: `/${endpoint}${query ? `?${query}` : ""}`,
           method: method.toLowerCase(),
           data: apiData,
         });
@@ -106,7 +106,7 @@ const useApi = (
     return () => {
       didCancel = true;
     };
-  }, [apiData, endpoint, method]);
+  }, [apiData, endpoint, method, query]);
 
   return [{ loading, data, status, msg, error }, setEndpoint];
 };

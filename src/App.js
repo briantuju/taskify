@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { pageUrls } from "./utils/constants";
 import { AuthContext } from "./context/auth";
+import { AppStorage } from "./utils/helpers";
 import Layout from "./components/Layout";
 import AuthRoutes from "./AuthRoutes";
 import * as pages from "./pages";
 import "./App.css";
-import { AppStorage } from "./utils/helpers";
 
 function App() {
   // Get token and save to state
@@ -62,12 +62,20 @@ function App() {
             <pages.Home />
           </AuthRoutes>
 
+          <AuthRoutes exact path={pageUrls.board}>
+            <pages.Boards />
+          </AuthRoutes>
+
           <AuthRoutes path={`${pageUrls.board}/:id`}>
-            <pages.Board />
+            <pages.Boards />
+          </AuthRoutes>
+
+          <AuthRoutes exact path={pageUrls.task}>
+            <pages.Tasks />
           </AuthRoutes>
 
           <AuthRoutes path={`${pageUrls.task}/:id`}>
-            <pages.Task />
+            <pages.Tasks />
           </AuthRoutes>
 
           <Route path={pageUrls.notFound}>

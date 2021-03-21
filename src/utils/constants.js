@@ -4,7 +4,7 @@
 export const pageUrls = {
   account: "/account",
   activateAccount: "/activate-account",
-  board: "/board",
+  board: "/boards",
   forgotPassword: "/forgot-password",
   home: "/home",
   landing: "/",
@@ -13,7 +13,7 @@ export const pageUrls = {
   productPlans: "/product-plans",
   resetPassword: "/reset-password",
   signup: "/signup",
-  task: "/task",
+  task: "/tasks",
 };
 
 /**
