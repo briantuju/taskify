@@ -82,7 +82,7 @@ const useApi = (
             setMsg(error.response.data.msg || error.response.statusText);
           } else if (error.request) {
             // Error as a result of no response
-            setData(error.response.data);
+            setData(error.request.data);
             setStatus(500);
             setMsg("ERROR: No response was received from this request!");
           } else {
