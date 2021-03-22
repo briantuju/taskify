@@ -4,7 +4,10 @@ import { fetchData } from "../utils/api";
 import { useAuth } from "../context/auth";
 import { endpoints, pageUrls } from "../utils/constants";
 import { Overlay, Spinner } from "../components/Loading";
+import { hardRedirectLocation } from "../utils/helpers";
 import BoardPreview from "../components/board/BoardPreview";
+import BoardCreate from "../components/board/BoardCreate";
+import Button from "../components/formik/Button";
 import Dashboard from "../components/Dashboard";
 import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
@@ -13,10 +16,36 @@ const BoardsDash = ({ boards }) => {
   // Destructure props
   const { loading, failed, data, msg } = boards;
 
+  // Component state
+  const [showModal, setShowModal] = useState(false);
+  const [newBoard, setNewBoard] = useState({
+    data: null,
+    failed: false,
+    msg: null,
+  });
+
+  // Add a new Board
+  const createBoard = async (values) => {
+    if (data) data.msg = null; // Clear existing messages
+
+    // Add new board and redirect to the new Boad page
+    const { data: boardData, failed, msg, status } = await fetchData(
+      endpoints.boards,
+      values,
+      "POST"
+    );
+    setNewBoard({ ...newBoard, failed, msg });
+
+    if (status === 201) {
+      hardRedirectLocation(`${pageUrls.board}/${boardData.data._id}`);
+    }
+  };
+
   return (
     <>
       {loading && <Spinner />}
       {failed && <Alerts messages={msg} type="danger" />}
+
       {data &&
         (data.length > 0 ? (
           <ul>
@@ -27,6 +56,24 @@ const BoardsDash = ({ boards }) => {
         ) : (
           <p>You have not created any boards yet.</p>
         ))}
+
+      {/* Add board button toggler */}
+      <Button
+        variant="info"
+        onClick={() => setShowModal(!showModal)}
+        className="m--y-1"
+      >
+        New Board
+      </Button>
+
+      {/* Create Board Modal */}
+      {showModal === true && (
+        <BoardCreate
+          handleAddBoard={createBoard}
+          message={newBoard.msg}
+          toggleVisibility={setShowModal}
+        />
+      )}
     </>
   );
 };
