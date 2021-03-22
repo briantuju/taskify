@@ -67,7 +67,7 @@ function App() {
           </AuthRoutes>
 
           <AuthRoutes path={`${pageUrls.board}/:id`}>
-            <pages.Boards />
+            <pages.Board />
           </AuthRoutes>
 
           <AuthRoutes exact path={pageUrls.task}>

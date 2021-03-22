@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import { useEffect, useState } from "react";
 import { fetchData } from "../utils/api";
@@ -49,9 +50,18 @@ const BoardsDash = ({ boards }) => {
       {data &&
         (data.length > 0 ? (
           <ul>
-            {data.map((board) => (
-              <BoardPreview key={board._id} boardData={board} />
-            ))}
+            {data.map((board, index) => {
+              if (index >= 5) return null;
+
+              return <BoardPreview key={board._id} boardData={board} />;
+            })}
+
+            {/* Show more boards link */}
+            {data.length >= 5 && (
+              <Link to={pageUrls.board} className="link">
+                View all boards
+              </Link>
+            )}
           </ul>
         ) : (
           <p>You have not created any boards yet.</p>

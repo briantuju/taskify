@@ -4,6 +4,7 @@
 export { default as Account } from "./Account";
 export { default as ActivateAccount } from "./ActivateAcc";
 export { default as Boards } from "./Boards";
+export { Board } from "./Boards";
 export { default as ForgotPassword } from "./ForgotPwd";
 export { default as Home } from "./Home";
 export { default as Landing } from "./Landing";

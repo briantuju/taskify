@@ -1,16 +1,16 @@
-import BoardItem from "./BoardItem";
 import PropTypes from "prop-types";
+import BoardPreview from "./BoardPreview";
 
-const BoardList = ({ data }) => {
-  if (data.length === 0) return <p>You have not created any boards yet</p>;
+const BoardList = ({ boardData }) => {
+  if (boardData.length === 0) return <p>You have not created any boards yet</p>;
 
   return (
     <>
-      <h3 className="h3">You Boards</h3>
+      <h3 className="h3 m--y-1">Your Boards</h3>
 
-      <ul>
-        {data.map((board) => (
-          <BoardItem key={board._id} boardData={board} />
+      <ul className="flex">
+        {boardData.map((board) => (
+          <BoardPreview key={board._id} boardData={board} />
         ))}
       </ul>
     </>
@@ -18,7 +18,7 @@ const BoardList = ({ data }) => {
 };
 
 BoardList.propTypes = {
-  data: PropTypes.array.isRequired,
+  boardData: PropTypes.array.isRequired,
 };
 
 export default BoardList;
