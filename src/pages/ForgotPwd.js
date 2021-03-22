@@ -1,38 +1,41 @@
+import { useState } from "react";
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
-// import { useApi, getApiErrorMsg } from "../utils/api";
+import { Link, Redirect } from "react-router-dom";
+import { useAuth } from "../context/auth";
+import { fetchData } from "../utils/api";
 import { endpoints, pageUrls } from "../utils/constants";
+import AlertDismissible from "../components/AlertDismissible";
 import TextInput from "../components/formik/TextInput";
 import schemas, { objSchema } from "../utils/schemas";
 import Button from "../components/formik/Button";
-import AlertDismissible from "../components/AlertDismissible";
-import { useState } from "react";
 
 const ForgotPwd = () => {
-  // Component State
-  const [disableForm, setDisableForm] = useState(false);
+  // Get auth state
+  const { authToken } = useAuth();
 
-  // Fetch API data
-  // const { error, data, refetch } = useApi(
-  //   endpoints.forgotPwd,
-  //   null,
-  //   "POST",
-  //   true
-  // );
+  // Component State
+  const [state, setState] = useState({ error: null, msg: null, attempts: 0 });
+
+  if (authToken) return <Redirect to={pageUrls.home} />;
 
   // Api call to get password reset token
   const handleForgotPwd = async (values) => {
-    /* const { data } = await refetch({ data: values });
-    if (data.success === true) {
-      setDisableForm(true);
-    } */
+    setState({ ...state, error: null, msg: null });
+
+    const { failed, msg } = await fetchData(
+      endpoints.forgotPwd,
+      values,
+      "POST"
+    );
+
+    if (failed) setState({ ...state, error: msg });
+
+    setState((state) => ({ ...state, msg, attempts: state.attempts++ }));
   };
 
   return (
     <div className="container p--y-2">
-      {/* {error && (
-        <AlertDismissible message={getApiErrorMsg(error)} type="danger" />
-      )} */}
+      {state.error && <AlertDismissible message={state.error} type="danger" />}
 
       {/* Password Reset Form */}
       <Formik
@@ -47,16 +50,16 @@ const ForgotPwd = () => {
               type="email"
               name="email"
               edit
-              disabled={disableForm}
+              disabled={state.attempts > 2}
               placeholder="Your email"
             />
 
-            {/* {data && data.msg && <AlertDismissible message={data.msg} />} */}
+            {state.msg && <AlertDismissible message={state.msg} />}
 
             <Button
               type="submit"
               isLoading={formik.isSubmitting}
-              disabled={!(formik.isValid && formik.dirty) || disableForm}
+              disabled={!(formik.isValid && formik.dirty) || state.attempts > 2}
             >
               Get reset link
             </Button>
