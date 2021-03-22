@@ -24,15 +24,21 @@ export const configureAxios = () => {
  * @param {String} url
  * @param {*} apiData
  * @param {String} method
+ * @param {String} query
  * @access public
  */
-export const fetchData = async (url, apiData = null, method = "GET") => {
+export const fetchData = async (
+  url,
+  apiData = null,
+  method = "GET",
+  query = ""
+) => {
   // Always call configureAxios to get the latest values
   configureAxios();
 
   try {
     const result = await axios({
-      url,
+      url: `/${url}${query ? `?${query}` : ""}`,
       method: method.toLowerCase(),
       data: apiData,
     });
