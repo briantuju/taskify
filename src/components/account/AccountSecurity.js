@@ -1,24 +1,75 @@
+import { useState } from "react";
 import { Form, Formik } from "formik";
+import { endpoints, pageUrls } from "../../utils/constants";
+import { hardRedirectLocation } from "../../utils/helpers";
+import { AppStorage } from "../../utils/helpers";
+import { fetchData } from "../../utils/api";
 import schemas, { objSchema } from "../../utils/schemas";
 import TextInput from "../formik/TextInput";
 import Button from "../formik/Button";
-// import Alerts from "../Alerts";
+import Alerts from "../Alerts";
 
-const updateAccount = async (values) => {
-  console.log(values);
+const options = {
+  del: "deleteAccount",
+  change: "changePassword",
+};
+
+const updateAccount = async (values, option, setErrorMsg) => {
+  setErrorMsg(null);
+  switch (option) {
+    // Update board
+    case options.change:
+      const { failed, msg } = await fetchData(
+        endpoints.account.changePwd,
+        values,
+        "POST"
+      );
+      if (failed) {
+        setErrorMsg(msg);
+        return;
+      }
+      AppStorage.removeAuthToken();
+      hardRedirectLocation(pageUrls.login);
+      break;
+
+    // Delete board
+    case options.del:
+      if (window.confirm("Delete this Board?")) {
+        const { failed, msg } = await fetchData(
+          endpoints.account.get,
+          values,
+          "DELETE"
+        );
+        if (failed) {
+          setErrorMsg(msg);
+          return;
+        }
+        AppStorage.removeAuthToken();
+        return hardRedirectLocation(pageUrls.landing);
+      }
+      break;
+
+    default:
+      break;
+  }
 };
 
 const AccountSecurity = () => {
+  const [deleteError, setDeleteError] = useState(null);
+  const [changeError, setChangeError] = useState(null);
+
   return (
     <>
       {/* Change Password Form */}
       <Formik
-        initialValues={{ current_password: "", new_password: "", action: "" }}
+        initialValues={{ current_password: "", new_password: "" }}
         validationSchema={objSchema({
           current_password: schemas.password,
           new_password: schemas.password,
         })}
-        onSubmit={async (values) => await updateAccount(values)}
+        onSubmit={async (values) =>
+          await updateAccount(values, options.change, setChangeError)
+        }
       >
         {(formik) => (
           <Form className="form--shadow">
@@ -38,15 +89,10 @@ const AccountSecurity = () => {
               type="password"
             />
 
-            {/* {error && <Alerts messages={error} type="danger" />} */}
+            {changeError && <Alerts messages={changeError} type="danger" />}
 
             <Button
               type="submit"
-              // Change the action to 'change_pwd' before submit
-              onClick={() => {
-                formik.setFieldValue("action", "change_pwd", false);
-                formik.handleSubmit();
-              }}
               isLoading={formik.isSubmitting}
               disabled={!(formik.isValid && formik.dirty)}
             >
@@ -60,9 +106,11 @@ const AccountSecurity = () => {
 
       {/* Delete Account Form */}
       <Formik
-        initialValues={{ password: "", action: "" }}
+        initialValues={{ password: "" }}
         validationSchema={objSchema({ password: schemas.password })}
-        onSubmit={async (values) => await updateAccount(values)}
+        onSubmit={async (values) =>
+          await updateAccount(values, options.del, setDeleteError)
+        }
       >
         {(formik) => (
           <Form className="form--shadow">
@@ -81,16 +129,11 @@ const AccountSecurity = () => {
 
             <TextInput placeholder="Password" name="password" type="password" />
 
-            {/* {error && <Alerts messages={error} type="danger" />} */}
+            {deleteError && <Alerts messages={deleteError} type="danger" />}
 
             <Button
               type="submit"
               variant="danger"
-              // Change the action to 'delete_acc' before submit
-              onClick={() => {
-                formik.setFieldValue("action", "delete_acc", false);
-                formik.handleSubmit();
-              }}
               isLoading={formik.isSubmitting}
               disabled={!(formik.isValid && formik.dirty)}
             >

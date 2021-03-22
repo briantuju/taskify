@@ -12,18 +12,17 @@ import ShowHide from "../ShowHide";
 // Helper method to handle board actions
 const handleBoard = async (values, id) => {
   const action = values.action.toLowerCase();
+  delete values.action;
 
   switch (action) {
     // Update board
     case "update":
-      delete values.action;
       await fetchData(`${endpoints.boards}/${id}`, values, "PUT");
       break;
 
     // Delete board
     case "delete":
       if (window.confirm("Delete this Board?")) {
-        delete values.action;
         await fetchData(`${endpoints.boards}/${id}`, values, "DELETE");
         return hardRedirectLocation(pageUrls.home);
       }

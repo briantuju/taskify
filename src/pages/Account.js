@@ -1,4 +1,3 @@
-import { useAuth } from "../context/auth";
 import { endpoints } from "../utils/constants";
 import { Overlay } from "../components/Loading";
 import AccountSecurity from "../components/account/AccountSecurity";
@@ -8,9 +7,6 @@ import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
 const Account = () => {
-  // Get auth state
-  const { setAuthToken } = useAuth();
-
   // Fetch account data
   const [{ loading, data, error, msg }] = useApi(
     endpoints.account.get + "?unified=true"
