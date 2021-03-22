@@ -24,3 +24,6 @@ yarn-error.log*
 
 # CSS map files
 *.css.map
+
+# Local Netlify folder
+.netlify
