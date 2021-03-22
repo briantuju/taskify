@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const AlertDismissible = ({ message, type = "info", delay = 15000 }) => {
@@ -6,7 +6,15 @@ const AlertDismissible = ({ message, type = "info", delay = 15000 }) => {
 
   const dismissAlert = () => setShow(false);
 
-  setTimeout(() => setShow(false), delay);
+  useEffect(() => {
+    let timer;
+
+    timer = setTimeout(() => setShow(false), delay);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  });
 
   // If show is false return null
   if (show !== true) return null;
