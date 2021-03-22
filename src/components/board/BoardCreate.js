@@ -49,7 +49,6 @@ const BoardCreate = ({ message, handleAddBoard, toggleVisibility }) => {
 BoardCreate.propTypes = {
   toggleVisibility: PropTypes.func.isRequired,
   handleAddBoard: PropTypes.func.isRequired,
-  error: PropTypes.object,
 };
 
 export default BoardCreate;
