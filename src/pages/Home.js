@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fetchData } from "../utils/api";
 import { useAuth } from "../context/auth";
 import { endpoints, pageUrls } from "../utils/constants";
@@ -13,9 +13,9 @@ import Dashboard from "../components/Dashboard";
 import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
-const BoardsDash = ({ boards }) => {
-  // Destructure props
-  const { loading, failed, data, msg } = boards;
+const BoardsDash = () => {
+  // Get boards data
+  const [{ data, loading, error, msg }] = useApi(endpoints.boards);
 
   // Component state
   const [showModal, setShowModal] = useState(false);
@@ -45,12 +45,12 @@ const BoardsDash = ({ boards }) => {
   return (
     <>
       {loading && <Spinner />}
-      {failed && <Alerts messages={msg} type="danger" />}
+      {error && <Alerts messages={msg} type="danger" />}
 
       {data &&
-        (data.length > 0 ? (
+        (data.data.length > 0 ? (
           <ul>
-            {data.map((board, index) => {
+            {data.data.map((board, index) => {
               if (index >= 5) return null;
 
               return <BoardPreview key={board._id} boardData={board} />;
@@ -92,33 +92,8 @@ const Home = () => {
   // Get auth token
   const { authToken } = useAuth();
 
-  // Boards states
-  const [boards, setBoards] = useState({
-    data: null,
-    failed: false,
-    msg: null,
-    loading: true,
-  });
-
   // Get account data
-  const [{ error, loading, data, msg, status }] = useApi(endpoints.account.get);
-
-  useEffect(() => {
-    const getUserBoards = async () => {
-      const { data, failed, msg } = await fetchData(endpoints.boards);
-
-      setBoards((boards) => ({
-        ...boards,
-        data: data.data,
-        failed,
-        msg,
-        loading: false,
-      }));
-    };
-
-    // Get user boards and update boards state if account fetch was okay
-    if (status === 200) getUserBoards();
-  }, [status]);
+  const [{ error, loading, data, msg }] = useApi(endpoints.account.get);
 
   // Redirect to landing page if there's no auth token
   if (!authToken) return <Redirect to={pageUrls.landing} />;
@@ -144,7 +119,7 @@ const Home = () => {
         {/* Boards List */}
         <div className="flex--1-of-3">
           <h3 className="m--y-1">Boards List</h3>
-          <BoardsDash boards={boards} />
+          {data && data.success && <BoardsDash />}
         </div>
 
         {/* Sidebar */}
