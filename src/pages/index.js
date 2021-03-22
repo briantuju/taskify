@@ -3,7 +3,7 @@
 */
 export { default as Account } from "./Account";
 export { default as ActivateAccount } from "./ActivateAcc";
-export { default as Board } from "./Board";
+export { default as Boards } from "./Boards";
 export { default as ForgotPassword } from "./ForgotPwd";
 export { default as Home } from "./Home";
 export { default as Landing } from "./Landing";
@@ -12,4 +12,4 @@ export { default as NotFound } from "./NotFound";
 export { default as ProductPlans } from "./ProductPlans";
 export { default as ResetPassword } from "./ResetPwd";
 export { default as Signup } from "./Signup";
-export { default as Task } from "./Task";
+export { default as Tasks } from "./Tasks";

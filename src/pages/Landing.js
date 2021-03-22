@@ -1,13 +1,15 @@
-import { Link /*  Redirect */ } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { pageUrls } from "../utils/constants";
-// import { useAuth } from "../context/auth";
+import { useAuth } from "../context/auth";
 // import ProductCTA from "../components/product/ProductCTA";
 
 const Landing = () => {
-  // Auth state and token
-  /* const { authToken } = useAuth();
-  if (authToken) return <Redirect to={pageUrls.home} />; */
+  // Get the auth token
+  const { authToken } = useAuth();
+
+  // Redirect to homepage if user is authenticated
+  if (authToken) return <Redirect to={pageUrls.home} />;
 
   return (
     <>
