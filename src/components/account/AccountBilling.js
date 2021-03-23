@@ -1,16 +1,48 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
-import { pageUrls } from "../../utils/constants";
+import { fetchData } from "../../utils/api";
+import { hardRedirectLocation } from "../../utils/helpers";
+import { endpoints, pageUrls } from "../../utils/constants";
 import Button from "../formik/Button";
+import Alerts from "../Alerts";
 
-const cancelPlan = async (values) => {};
+/**
+ * Cancel the customer's current subscription
+ * @param {String} subscriptionId
+ * @param {Function} setState
+ */
+const cancelPlan = async (subscriptionId, setState) => {
+  setState((state) => ({ ...state, error: false }));
+
+  // Api call to cancel current plan
+  if (window.confirm("Cancel current plan?")) {
+    const { failed, msg } = await fetchData(
+      endpoints.stripe.subscriptions,
+      { subscriptionId },
+      "DELETE"
+    );
+
+    // Redirect to account page after deleting subscription
+    if (failed) {
+      return setState((state) => ({ ...state, error: true, errorMsg: msg }));
+    }
+    return hardRedirectLocation(pageUrls.account);
+  }
+};
 
 const AccountBilling = ({ billingData }) => {
   // Destructure data
   const { paymentMethod, subscription, productPlan } = billingData;
   const card = paymentMethod ? paymentMethod.card : null;
   const { name, price } = productPlan;
+
+  // Component state
+  const [state, setState] = useState({
+    error: false,
+    errorMsg: "An error occured. Try again later!",
+  });
 
   return (
     <div className="p--1 brad bg--light m--y-1">
@@ -47,12 +79,17 @@ const AccountBilling = ({ billingData }) => {
 
             <Formik
               initialValues={{}}
-              onSubmit={async (values) => await cancelPlan(values)}
+              onSubmit={async () => await cancelPlan(subscription.id, setState)}
             >
               {(formik) => (
                 <Form>
                   {/* Cancel Plan */}
+                  {state.error && (
+                    <Alerts messages={state.errorMsg} type="danger" />
+                  )}
+
                   <Button
+                    type="submit"
                     variant="info"
                     isLoading={formik.isSubmitting}
                     className="m--y-1"
