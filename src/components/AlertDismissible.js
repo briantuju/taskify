@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import Icon from "./Icon";
 
 const AlertDismissible = ({ message, type = "info", delay = 15000 }) => {
   const [show, setShow] = useState(true);
@@ -21,9 +22,13 @@ const AlertDismissible = ({ message, type = "info", delay = 15000 }) => {
 
   return (
     <p className={`alert--dismissible text--${type}`}>
-      <span className="close-alert" tabIndex="0" onClick={dismissAlert}>
-        <i className="far fa-times-circle"></i>
-      </span>
+      <Icon
+        name="close"
+        tabIndex="0"
+        handleClick={dismissAlert}
+        className="click--cursor"
+      />
+
       <span className="m--x-1">{message}</span>
     </p>
   );
