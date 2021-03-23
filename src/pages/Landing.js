@@ -2,7 +2,7 @@ import { Link, Redirect } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { pageUrls } from "../utils/constants";
 import { useAuth } from "../context/auth";
-// import ProductCTA from "../components/product/ProductCTA";
+import ProductCTA from "../components/product/ProductCTA";
 
 const Landing = () => {
   // Get the auth token
@@ -84,7 +84,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* <ProductCTA /> */}
+      <ProductCTA />
     </>
   );
 };
