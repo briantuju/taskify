@@ -52,14 +52,13 @@ const UpgradePlan = ({ productId, plan }) => {
   const location = useLocation();
   const query = useQueryParams();
 
-  // Component state
+  // Setup the component state
   const [state, setState] = useState({
     error: false,
     loading: false,
     errorMsg: "An error occured. Try again later!",
   });
 
-  // Setup the component state
   const [stripeObj, setStripeObj] = useState({
     showCheckout: false,
     customerObj: null,
@@ -70,26 +69,39 @@ const UpgradePlan = ({ productId, plan }) => {
   // Get account data
   const getAccountData = async () => {
     // Fetch api data
-    const { data, failed } = await fetchData(endpoints.account.get);
+    const { data, failed, msg } = await fetchData(endpoints.account.get);
     if (failed) return null;
 
-    return data.data;
+    return { data: data.data, failed, msg };
   };
 
-  // Fetch customer
-  const fetchCustomer = async () => {
+  // Create customer
+  const createCustomer = async (email) => {
+    // Create the customer if he/she is a new customer
+    const { data: stripeCustomer, failed, msg } = await fetchData(
+      endpoints.stripe.customers,
+      { email },
+      "POST"
+    );
+
+    return { stripeCustomer, failed, msg };
+  };
+
+  // Get customer
+  const getCustomer = async () => {
     setState({ ...state, loading: true });
 
     // Get the user account data
-    const accountData = await getAccountData();
+    const { data } = await getAccountData();
 
-    if (accountData) {
-      const userEmail = accountData.email;
+    if (data) {
+      const userEmail = data.email;
 
       // Get the customer with this email from stripe customers
       const { data: existingCustomer, failed } = await fetchData(
         endpoints.stripe.customers + "?email=" + userEmail
       );
+
       if (failed) {
         setState({ ...state, loading: false, error: true });
         return null;
@@ -97,8 +109,8 @@ const UpgradePlan = ({ productId, plan }) => {
 
       setState({ ...state, loading: false });
       return {
-        data: { ...existingCustomer.data }, // Always an object
-        productPlan: accountData.productPlan,
+        data: existingCustomer.data ? { ...existingCustomer.data } : null,
+        productPlan: data.productPlan,
         userEmail,
       };
     }
@@ -108,9 +120,10 @@ const UpgradePlan = ({ productId, plan }) => {
   };
 
   // Handle product plan upgrade
-  const initPlanUpgrade = async () => {
+  const upgradeUserPlan = async () => {
     let thisCustomer;
-    const existingCustomer = await fetchCustomer();
+
+    const existingCustomer = await getCustomer();
 
     if (!existingCustomer) {
       setState({ ...state, errorMsg: "Customer not found", error: true });
@@ -126,22 +139,16 @@ const UpgradePlan = ({ productId, plan }) => {
     }
 
     // This is a new customer
-    if (existingCustomer.productPlan.id === null) {
+    if (existingCustomer.data === null) {
       setState({ ...state, loading: true });
 
       // Create the customer if he/she is a new customer
-      const { data: stripeCustomer, failed } = await fetchData(
-        endpoints.stripe.customers,
-        { email: existingCustomer.userEmail },
-        "POST"
+      const { stripeCustomer, failed, msg } = await createCustomer(
+        existingCustomer.userEmail
       );
+
       if (failed) {
-        setState({
-          ...state,
-          loading: false,
-          errorMsg: "Could not create this customer.",
-          error: true,
-        });
+        setState({ ...state, loading: false, errorMsg: msg, error: true });
         return;
       }
 
@@ -195,7 +202,7 @@ const UpgradePlan = ({ productId, plan }) => {
           You have selected <strong className="text--info">{plan}</strong>
         </span>
 
-        <h3 className="m--y-1">
+        <h3 className="m--y-1 text--center">
           When you upgrade to a paid plan, you will get all the free features in
           addition to the features that are included in `{plan}`.
         </h3>
@@ -211,7 +218,7 @@ const UpgradePlan = ({ productId, plan }) => {
             className="shadow"
             isLoading={state.loading}
             disabled={stripeObj.isCurrentPlan}
-            onClick={initPlanUpgrade}
+            onClick={upgradeUserPlan}
           >
             Upgrade to {plan}
           </Button>
