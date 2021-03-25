@@ -79,7 +79,7 @@
   // Form button
   & > *.btn {
     width: max-content;
-    margin: .75rem 0;
+    margin: 0.75rem 0;
   }
 
   // Form variants
@@ -93,24 +93,28 @@
     }
   }
 
-  &--p-2 {
+  &--p {
     @extend .form;
-    padding: 2rem;
+
+    &-tiny {
+      padding: 0.5rem 0;
+    }
+
+    &-2 {
+      padding: 2rem 0;
+    }
   }
 
-  &--p-tiny {
+  &--m {
     @extend .form;
-    padding: .5rem;
-  }
 
-  &--m-2 {
-    @extend .form;
-    margin: 2rem 0;
-  }
+    &-tiny {
+      margin: 0.5rem 0;
+    }
 
-  &--m-tiny {
-    @extend .form;
-    margin: .5rem 0;
+    &-2 {
+      margin: 2rem 0;
+    }
   }
 
   &--center {
