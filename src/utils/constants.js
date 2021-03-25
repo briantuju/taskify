@@ -24,6 +24,7 @@ export const endpoints = {
   login: "login",
   boards: "boards",
   tasks: "tasks",
+  comments: "comments",
   account: {
     get: "account",
     verify: "account/verify",
@@ -94,4 +95,11 @@ export const months = {
   oct: "October",
   nov: "November",
   dec: "December",
+};
+
+/** Application Resources */
+export const resourceNames = {
+  boards: "boards",
+  tasks: "tasks",
+  users: "users",
 };

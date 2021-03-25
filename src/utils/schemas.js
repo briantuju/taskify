@@ -44,6 +44,10 @@ const schemas = {
   taskDescription: Yup.string()
     .min(3, "Minimum 3 characters")
     .max(256, "Maximum 256 characters"),
+
+  commentBody: Yup.string()
+    .min(2, "Minimum 2 characters")
+    .max(256, "Max 256 characters"),
 };
 
 export default schemas;
