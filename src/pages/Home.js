@@ -77,7 +77,7 @@ const BoardsDash = () => {
       </Button>
 
       {/* Create Board Modal */}
-      {showModal === true && (
+      {showModal && (
         <BoardCreate
           handleAddBoard={createBoard}
           message={newBoard.msg}

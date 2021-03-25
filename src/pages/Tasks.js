@@ -1,11 +1,27 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Overlay } from "../components/Loading";
-import { endpoints } from "../utils/constants";
+import { endpoints, resourceNames } from "../utils/constants";
 import TaskItem from "../components/task/TaskItem";
 import ShowHide from "../components/ShowHide";
 import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
+import Comment from "../components/comment/Comment";
+
+const ActionsComingSoon = () => {
+  return (
+    <div className="p--tiny text--italic m--y-1 brad bg--light">
+      <strong className="d--block">To be implemented: </strong>
+      <ul>
+        <li>Due date</li>
+        <li>Sharing task</li>
+        <li>Add board members to this task</li>
+        <li>Move task to another board</li>
+        <li>Task attachments</li>
+      </ul>
+    </div>
+  );
+};
 
 const TaskActions = () => {
   const [showActivity, setShowActivity] = useState(false);
@@ -18,18 +34,7 @@ const TaskActions = () => {
         text="Task Actions"
       />
 
-      {showActivity && (
-        <div className="p--tiny text--italic m--y-1 brad bg--light">
-          <strong className="d--block">To be implemented: </strong>
-          <ul>
-            <li>Due date</li>
-            <li>Sharing task</li>
-            <li>Add board members to this task</li>
-            <li>Move task to another board</li>
-            <li>Task attachments</li>
-          </ul>
-        </div>
-      )}
+      {showActivity && <ActionsComingSoon />}
     </div>
   );
 };
@@ -58,8 +63,15 @@ const Tasks = () => {
             <TaskItem taskData={data.data} />
           </div>
 
+          {/* Task Comments */}
+          <div className="flex--1-of-3">
+            <h3 className="m--y-1">Comments</h3>
+            <Comment resourceId={id} resourceName={resourceNames.tasks} />
+          </div>
+
           {/* Task Actions */}
-          <div className="flex--2-of-3">
+          <div className="flex--1-of-3">
+            {/* Task Comments */}
             <TaskActions />
           </div>
         </div>
