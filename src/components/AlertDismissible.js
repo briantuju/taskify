@@ -23,10 +23,10 @@ const AlertDismissible = ({ message, type = "info", delay = 15000 }) => {
   return (
     <p className={`alert--dismissible text--${type}`}>
       <Icon
-        name="close"
+        name="close-circle-outline"
         tabIndex="0"
         handleClick={dismissAlert}
-        className="click--cursor"
+        className="close-alert"
       />
 
       <span className="m--x-1">{message}</span>
