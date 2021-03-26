@@ -9,48 +9,37 @@ import ReactModal from "../ReactModal";
 import Button from "../formik/Button";
 import Alerts from "../Alerts";
 
-// Handle update and delete cases for comment
-const handleChange = async (
-  values,
-  commentId,
-  updateState,
-  toggle,
-  reloadCb
-) => {
-  const action = values.action.toLowerCase();
-  delete values.action;
+const updateComment = async (values, commentId, setState) => {
+  // Loading state is handled by formik.isSubmitting
+  setState((state) => ({ ...state, error: false, msg: null }));
 
-  switch (action) {
-    // Update comment
-    case "update":
-      delete values.action;
-      const { failed, msg } = await fetchData(
-        `${endpoints.comments}/${commentId}`,
-        values,
-        "PUT"
-      );
-      if (failed) updateState((state) => ({ ...state, error: true, msg }));
-      toggle();
-      reloadCb();
-      break;
+  const { failed, msg, data } = await fetchData(
+    `${endpoints.comments}/${commentId}`,
+    values,
+    "PUT"
+  );
+  if (failed) return setState((state) => ({ ...state, error: true, msg }));
+  return data.data;
+};
 
-    // Delete comment
-    case "delete":
-      delete values.action;
-      if (window.confirm("Delete this comment?")) {
-        const { failed, msg } = await fetchData(
-          `${endpoints.comments}/${commentId}`,
-          values,
-          "DELETE"
-        );
-        if (failed) updateState((state) => ({ ...state, error: true, msg }));
-        toggle();
-        reloadCb();
-      }
-      break;
+const deleteComment = async (commentId, values, setState, refresh) => {
+  if (window.confirm("Delete this comment?")) {
+    const { toggle, reloadCb } = refresh;
+    setState((state) => ({ ...state, error: false, msg: null, loading: true }));
 
-    default:
-      break;
+    const { failed, msg } = await fetchData(
+      `${endpoints.comments}/${commentId}`,
+      values,
+      "DELETE"
+    );
+
+    if (failed) {
+      setState((state) => ({ ...state, error: true, msg, loading: false }));
+      return;
+    }
+    setState((state) => ({ ...state, loading: false, msg }));
+    toggle();
+    reloadCb();
   }
 };
 
@@ -62,63 +51,56 @@ const CommentModal = ({ toggle, initValues, reloadCb }) => {
   const [state, setState] = useState({
     error: false,
     msg: null,
+    loading: false,
   });
 
   return (
     <ReactModal toggleVisibility={toggle}>
       <Formik
-        initialValues={{ resourceId, resourceName, body, action: "update" }}
+        initialValues={{ resourceId, resourceName, body }}
         validationSchema={objSchema({ body: schemas.commentBody })}
-        onSubmit={async (values) =>
-          await handleChange(values, _id, setState, toggle, reloadCb)
-        }
+        onSubmit={async (values) => {
+          const data = await updateComment(values, _id, setState);
+          // Handle toggle and reload
+          if (data) {
+            toggle();
+            reloadCb();
+          }
+        }}
       >
         {(formik) => (
           <Form className="form" onSubmit={formik.handleSubmit}>
             <input type="hidden" name="resourceId" />
             <input type="hidden" name="resourceName" />
-            <input type="hidden" name="action" />
 
-            <TextAreaInput
-              label="Comment body"
-              name="body"
-              placeholder="Type a comment here..."
-            />
+            <TextAreaInput name="body" placeholder="Type a comment here..." />
 
-            {state.error && <Alerts messages={state.msg} />}
+            {state.error && <Alerts messages={state.msg} type="danger" />}
+            {!state.error && state.msg && <Alerts messages={state.msg} />}
+
             <div>
               {/* Update comment button */}
               <Button
                 type="submit"
-                size="tiny"
                 variant="success"
-                // Change the action to 'update' before submit
-                onClick={() => {
-                  formik.setFieldValue("action", "update", false);
-                  formik.handleSubmit();
-                }}
                 disabled={!(formik.isValid && formik.dirty)}
-                isLoading={
-                  formik.isSubmitting && formik.values.action === "update"
-                }
+                isLoading={formik.isSubmitting}
               >
                 Update
               </Button>
 
               {/* Delete comment button */}
               <Button
-                type="submit"
-                size="tiny"
                 variant="danger"
                 className="m--x-2"
-                // Change the action to 'delete' before submit
                 onClick={() => {
-                  formik.setFieldValue("action", "delete", false);
-                  formik.handleSubmit();
+                  deleteComment(_id, formik.values, setState, {
+                    toggle,
+                    reloadCb,
+                  });
                 }}
-                isLoading={
-                  formik.isSubmitting && formik.values.action === "delete"
-                }
+                isLoading={state.loading}
+                disabled={formik.isSubmitting}
               >
                 Delete
               </Button>

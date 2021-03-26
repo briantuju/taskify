@@ -74,7 +74,7 @@ const AccountAvatarModal = ({ toggle, initValues }) => {
   return (
     <ReactModal toggleVisibility={toggle}>
       <Formik
-        initialValues={{ avatar: secure_url, action: "change" }}
+        initialValues={{ avatar: secure_url }}
         onSubmit={async () => {
           const data = await changeAvatar(state.file, setState);
           if (data) {
@@ -84,8 +84,6 @@ const AccountAvatarModal = ({ toggle, initValues }) => {
       >
         {(formik) => (
           <Form className="form--center">
-            <input type="hidden" name="action" />
-
             <Field
               as="img"
               src={state.file}
@@ -111,9 +109,7 @@ const AccountAvatarModal = ({ toggle, initValues }) => {
               {/* Change avatar button */}
               <Button
                 type="submit"
-                isLoading={
-                  formik.isSubmitting && formik.values.action === "change"
-                }
+                isLoading={formik.isSubmitting}
                 disabled={
                   !state.file || state.file === secure_url ? true : false
                 }
@@ -127,6 +123,7 @@ const AccountAvatarModal = ({ toggle, initValues }) => {
                 variant="danger"
                 className="m--x-2"
                 isLoading={state.loading}
+                disabled={formik.isSubmitting}
               >
                 Remove Avatar
               </Button>
