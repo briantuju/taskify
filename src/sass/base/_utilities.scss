@@ -267,15 +267,15 @@
   }
 
   &--tiny {
-    margin: .5rem;
+    margin: 0.5rem;
   }
 
   &--x-tiny {
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
   }
 
   &--y-tiny {
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 
   &--0 {
@@ -312,17 +312,17 @@
   &--0 {
     padding: 0;
   }
-  
+
   &--tiny {
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
   &--x-tiny {
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
   }
 
   &--y-tiny {
-    padding: .5rem 0;
+    padding: 0.5rem 0;
   }
 
   &--1 {
@@ -379,7 +379,7 @@
 // Link styles
 .link {
   @extend .brad, .p--tiny, .shadow, .d--i-block, .m--y-1;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &--disabled {
     @extend .click--not-allowed;
@@ -409,7 +409,7 @@
     @extend .click--none;
   }
 
-  &:hover{
+  &:hover {
     box-shadow: none;
   }
 }
@@ -465,6 +465,17 @@
 
   &--clear {
     clear: both;
+  }
+}
+
+// Images
+.img {
+  max-width: 100%;
+  height: auto;
+
+  &--avatar {
+    @extend .img;
+    clip-path: circle();
   }
 }
 
