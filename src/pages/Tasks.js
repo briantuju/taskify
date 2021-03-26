@@ -67,7 +67,15 @@ const Tasks = () => {
           {/* Task Actions */}
           <div className="flex--1-of-3">
             {/* Task Date and Time */}
-            <TaskDateTime dueDate={data.data.fields.dueDate || ""} />
+            <TaskDateTime
+              data={{
+                id,
+                dueDate: data.data.fields.dueDate || "",
+                title: data.data.title,
+                description: data.data.description,
+                boardId: data.data.boardId,
+              }}
+            />
 
             {/* Other Task Actions */}
             <TaskActions />

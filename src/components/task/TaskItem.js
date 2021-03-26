@@ -89,7 +89,7 @@ const TaskItem = ({ taskData }) => {
             </Link>
           </small>
 
-          <div>
+          <div className="m--y-1">
             <ShowHide
               handleToggle={setShowDetails}
               isExpanded={showDetails}
@@ -98,7 +98,7 @@ const TaskItem = ({ taskData }) => {
           </div>
 
           {showDetails && (
-            <div className="p--x-1 bg--light shadow--small brad">
+            <div className="p--tiny m--y-1 border shadow brad">
               <span className="d--block m--y-tiny">
                 Task Status :{" "}
                 <strong className="text--dark">
