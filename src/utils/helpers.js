@@ -27,17 +27,11 @@ export class DateTime {
   }
 
   /**
-   * Converts an `ISO date string` to `ISO date` and `ISO time` strings
-   * @param {String} isoString
+   * Converts date to ISO string
+   * @param {String} dateString
    */
-  static toIsoDateTime(isoString) {
-    const indexOfT = isoString.indexOf("T");
-    const indexOfPeriod = isoString.indexOf(".");
-
-    return {
-      date: isoString.substring(0, indexOfT),
-      time: isoString.substring(indexOfT + 1, indexOfPeriod),
-    };
+  static toIsoString(dateString) {
+    return dayjs(dateString).toISOString();
   }
 }
 
