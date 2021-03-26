@@ -4,8 +4,7 @@
 .react-datepicker {
   width: 100%;
   font-size: 1.2rem;
-  border: none;
-  box-shadow: variables.$shadow;
+  border: variables.$border-small;
 
   &-time {
     &__input-container {

@@ -39,7 +39,7 @@
       content: "";
       display: block;
       height: 100%;
-      width: .2rem;
+      width: 0.2rem;
       background-color: variables.$color-success;
     }
   }
@@ -48,8 +48,8 @@
 // Media Queries
 @media screen and (min-width: variables.$tablet) {
   .alert-dismissible {
-    padding: 1.25rem;
-    top: 2.5rem;
-    right: 2.5rem;
+    padding: 1.5rem;
+    top: 3rem;
+    right: 3rem;
   }
 }

@@ -512,9 +512,9 @@ body {
 
 @media screen and (min-width: 768px) {
   .alert-dismissible {
-    padding: 1.25rem;
-    top: 2.5rem;
-    right: 2.5rem;
+    padding: 1.5rem;
+    top: 3rem;
+    right: 3rem;
   }
 }
 .btn {
@@ -731,8 +731,7 @@ body {
 .react-datepicker {
   width: 100%;
   font-size: 1.2rem;
-  border: none;
-  box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.09);
+  border: 1px solid #e9e9e9;
 }
 .react-datepicker-time__input-container .react-datepicker-time__input .react-datepicker-time__input {
   padding: 1rem 0.5rem;
