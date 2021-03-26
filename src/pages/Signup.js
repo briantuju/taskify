@@ -53,7 +53,7 @@ const Signup = () => {
         onSubmit={async (values) => await handleSignup(values)}
       >
         {(formik) => (
-          <Form className="form--p-2 form--shadow-big form--center">
+          <Form className="form--shadow-big form--center">
             <TextInput label="Name" name="name" placeholder="Your Name" />
 
             <TextInput

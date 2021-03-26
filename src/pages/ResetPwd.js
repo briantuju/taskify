@@ -130,7 +130,7 @@ const ResetPwd = () => {
           onSubmit={async (values) => await handleResetPwd(values)}
         >
           {(formik) => (
-            <Form className="form--p-2 form--shadow form--center">
+            <Form className="form--shadow form--center">
               <TextInput
                 label="Email Address"
                 type="email"
