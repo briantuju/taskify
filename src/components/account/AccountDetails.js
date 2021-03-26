@@ -2,6 +2,7 @@ import { Form, Formik } from "formik";
 import { fetchData } from "../../utils/api";
 import { endpoints } from "../../utils/constants";
 import schemas, { objSchema } from "../../utils/schemas";
+import AccountAvatar from "./AccountAvatar";
 import TextInput from "../formik/TextInput";
 import Button from "../formik/Button";
 import Activate from "./Activate";
@@ -13,12 +14,18 @@ const updateAccount = async (values) => {
 
 const AccountDetails = ({ accountData }) => {
   // Destructure data
-  const { name, email } = accountData;
+  const { name, email, fullName, avatar } = accountData;
 
   return (
     <>
       {/* Notify user to verify account if not verified */}
       {!accountData.verification.isVerified && <Activate />}
+
+      <AccountAvatar
+        secure_url={avatar.secure_url}
+        public_id={avatar.public_id}
+        fullName={fullName}
+      />
 
       <Formik
         initialValues={{
