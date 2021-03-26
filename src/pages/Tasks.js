@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Overlay } from "../components/Loading";
 import { endpoints, resourceNames } from "../utils/constants";
+import TaskDateTime from "../components/task/TaskDateTime";
+import Comment from "../components/comment/Comment";
 import TaskItem from "../components/task/TaskItem";
 import ShowHide from "../components/ShowHide";
 import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
-import Comment from "../components/comment/Comment";
 
 const ActionsComingSoon = () => {
   return (
@@ -63,16 +64,19 @@ const Tasks = () => {
             <TaskItem taskData={data.data} />
           </div>
 
+          {/* Task Actions */}
+          <div className="flex--1-of-3">
+            {/* Task Date and Time */}
+            <TaskDateTime dueDate={data.data.fields.dueDate || ""} />
+
+            {/* Other Task Actions */}
+            <TaskActions />
+          </div>
+
           {/* Task Comments */}
           <div className="flex--1-of-3">
             <h3 className="m--y-1">Comments</h3>
             <Comment resourceId={id} resourceName={resourceNames.tasks} />
-          </div>
-
-          {/* Task Actions */}
-          <div className="flex--1-of-3">
-            {/* Task Comments */}
-            <TaskActions />
           </div>
         </div>
       )}

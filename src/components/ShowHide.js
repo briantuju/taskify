@@ -12,7 +12,7 @@ const ShowHide = ({ isExpanded, handleToggle, text }) => {
       className={"d--i-block brad bg--light m--y-tiny click--cursor"}
       onClick={toggleIsExpanded}
     >
-      <small className="m--x-tiny">
+      <small className="m--x-tiny text--bold">
         {isExpanded ? `Hide ${text ? text : ""}` : `Show ${text ? text : ""}`}
       </small>
     </span>
