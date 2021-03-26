@@ -25,6 +25,9 @@ export const endpoints = {
   boards: "boards",
   tasks: "tasks",
   comments: "comments",
+  media: {
+    userProfile: "media/user/profile",
+  },
   account: {
     get: "account",
     verify: "account/verify",
@@ -50,6 +53,7 @@ export const endpoints = {
 export const api = {
   url: process.env.REACT_APP_API_URL + "/api",
   version: "/v1",
+  cloudinaryName: process.env.REACT_APP_CLOUDINARY_NAME,
   keys: {
     stripePublishableKey: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY,
   },
