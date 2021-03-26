@@ -1,0 +1,61 @@
+@use '../abstracts/variables';
+
+// Override react datepicker styles
+.react-datepicker {
+  width: 100%;
+  font-size: 1.2rem;
+  border: none;
+  box-shadow: variables.$shadow;
+
+  &-time {
+    &__input-container {
+      .react-datepicker-time__input {
+        .react-datepicker-time__input {
+          padding: 1rem 0.5rem;
+          font-size: variables.$default-font-size;
+          border: 2px solid transparent;
+          border-radius: variables.$brad-small;
+          background-color: lighten(
+            $color: variables.$color-grey-light,
+            $amount: 5
+          );
+
+          &:hover {
+            border-color: variables.$color-grey-light;
+          }
+
+          &:focus {
+            border-color: variables.$color-grey-dark;
+          }
+        }
+      }
+    }
+  }
+
+  &__month-container {
+    float: none;
+  }
+
+  &__current-month {
+    font-size: 1.5rem;
+  }
+
+  &__input-time-container {
+    @extend .react-datepicker__month-container;
+    display: flex;
+    justify-content: center;
+    width: initial;
+    margin: 10px;
+
+    .react-datepicker-time__caption {
+      display: none;
+    }
+  }
+
+  &__day,
+  &__day-name {
+    width: 1.9rem;
+    line-height: 2rem;
+    margin: 0.3rem;
+  }
+}
