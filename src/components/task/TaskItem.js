@@ -51,7 +51,7 @@ const handleTask = async (values, id, boardId) => {
 const TaskItem = ({ taskData }) => {
   // Destructure props
   const { title, description, done, _id } = taskData;
-  const { boardData, createdAt, updatedAt } = taskData;
+  const { boardData, createdAt, updatedAt, fields } = taskData;
 
   // Component state
   const [showDetails, setShowDetails] = useState(false);
@@ -105,6 +105,16 @@ const TaskItem = ({ taskData }) => {
                   {done ? "Complete" : "Incomplete"}
                 </strong>
               </span>
+
+              {/* Show `due in` if due date exists */}
+              {fields.dueDate && (
+                <span className="d--block m--y-tiny">
+                  Due in{" "}
+                  <strong className="text--dark">
+                    {DateTime.timeToX(fields.dueDate)}
+                  </strong>
+                </span>
+              )}
 
               <span className="d--block m--y-tiny">
                 Created{" "}

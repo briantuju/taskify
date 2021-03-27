@@ -9,21 +9,6 @@ import ShowHide from "../components/ShowHide";
 import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
-const ActionsComingSoon = () => {
-  return (
-    <div className="p--tiny text--italic m--y-1 brad bg--light">
-      <strong className="d--block">To be implemented: </strong>
-      <ul>
-        <li>Due date</li>
-        <li>Sharing task</li>
-        <li>Add board members to this task</li>
-        <li>Move task to another board</li>
-        <li>Task attachments</li>
-      </ul>
-    </div>
-  );
-};
-
 const TaskActions = () => {
   const [showActivity, setShowActivity] = useState(false);
 
@@ -32,10 +17,22 @@ const TaskActions = () => {
       <ShowHide
         handleToggle={setShowActivity}
         isExpanded={showActivity}
-        text="Task Actions"
+        text="task actions to implement"
       />
 
-      {showActivity && <ActionsComingSoon />}
+      {showActivity && (
+        <div className="p--tiny text--italic m--y-1 brad bg--light">
+          <ul>
+            <li>
+              <del>Due date</del>
+            </li>
+            <li>Sharing task</li>
+            <li>Add board members to this task</li>
+            <li>Move task to another board</li>
+            <li>Task attachments</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

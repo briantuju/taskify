@@ -7,6 +7,7 @@ import { endpoints } from "../../utils/constants";
 import AlertDismissible from "../AlertDismissible";
 import Button from "../formik/Button";
 import ShowHide from "../ShowHide";
+import TaskDue from "./TaskDue";
 import Alerts from "../Alerts";
 
 const TaskDateTime = ({ data }) => {
@@ -81,10 +82,12 @@ const TaskDateTime = ({ data }) => {
 
       {show && (
         <div className="p--1 shadow">
+          {date.length > 0 && <TaskDue dueDate={date} />}
+
           <InlineDateTime
             startDate={date ? new Date(date) : new Date()}
             onDateChange={handleDateChange}
-            minDate={new Date()}
+            todayButton="Today"
             className="shadow"
           />
 
