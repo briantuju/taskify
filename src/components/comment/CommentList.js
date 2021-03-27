@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { DateTime } from "../../utils/helpers";
 import CommentModal from "./CommentModal";
+import CommentItem from "./CommentItem";
 
 const CommentList = ({ commentData, reloadCb }) => {
   // Component state
@@ -34,15 +35,8 @@ const CommentList = ({ commentData, reloadCb }) => {
     <>
       <ul>
         {commentData.map((com) => (
-          <li key={com._id} className="p--tiny">
-            <span
-              className="p--y-1 d--block"
-              onClick={() => showCommentModal(com)}
-            >
-              {com.body}
-            </span>
-
-            <span>Added {DateTime.fromNow(com.createdAt)}</span>
+          <li key={com._id}>
+            <CommentItem commentData={com} onEllipsisClick={showCommentModal} />
           </li>
         ))}
       </ul>

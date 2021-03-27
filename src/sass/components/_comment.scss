@@ -1,0 +1,54 @@
+@use '../abstracts/variables';
+
+// Comment styles
+.comment {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+
+  &__block-left {
+    padding-top: 0.25rem;
+    min-width: 40px;
+  }
+
+  &__block-right {
+    margin-left: 1.25rem;
+    position: relative;
+    flex-grow: 1;
+  }
+
+  &__ {
+    &user-name {
+      display: block;
+      font-weight: 900;
+    }
+
+    &ellipsis {
+      position: absolute;
+      top: -0.5rem;
+      right: 0;
+      cursor: pointer;
+      color: variables.$color-black;
+    }
+
+    &body {
+      display: block;
+      margin: 0.75rem 0;
+    }
+
+    &date {
+      display: block;
+      margin: 0.5rem 0 1rem 0;
+      color: variables.$color-black;
+    }
+  }
+}
+
+// Media Queries
+@media screen and (min-width: variables.$tablet) {
+  .comment {
+    &__block-right {
+      margin-left: 2rem;
+    }
+  }
+}

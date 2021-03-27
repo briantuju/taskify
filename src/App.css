@@ -606,6 +606,46 @@ body {
   outline: 1px solid #e9e9e9;
 }
 
+.comment {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+}
+.comment__block-left {
+  padding-top: 0.25rem;
+  min-width: 40px;
+}
+.comment__block-right {
+  margin-left: 1.25rem;
+  position: relative;
+  flex-grow: 1;
+}
+.comment__user-name {
+  display: block;
+  font-weight: 900;
+}
+.comment__ellipsis {
+  position: absolute;
+  top: -0.5rem;
+  right: 0;
+  cursor: pointer;
+  color: #000000;
+}
+.comment__body {
+  display: block;
+  margin: 0.75rem 0;
+}
+.comment__date {
+  display: block;
+  margin: 0.5rem 0 1rem 0;
+  color: #000000;
+}
+
+@media screen and (min-width: 768px) {
+  .comment__block-right {
+    margin-left: 2rem;
+  }
+}
 .form, .form--center, .form--m, .form--p, .form--shadow-big, .form--shadow {
   display: flex;
   flex-direction: column;
