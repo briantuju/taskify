@@ -10,7 +10,9 @@ const BoardList = ({ boardData }) => {
 
       <ul className="flex">
         {boardData.map((board) => (
-          <BoardPreview key={board._id} boardData={board} />
+          <li key={board._id}>
+            <BoardPreview boardData={board} />
+          </li>
         ))}
       </ul>
     </>

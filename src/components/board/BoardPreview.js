@@ -8,7 +8,7 @@ const BoardPreview = ({ boardData }) => {
   const { _id, title, createdAt, tasks } = boardData;
 
   return (
-    <li className="outline p--tiny m--y-1 bg--light">
+    <div className="border shadow--small brad p--1 m--y-1">
       <h3>
         <Link to={pageUrls.board + "/" + _id}>{title}</Link>
       </h3>
@@ -17,9 +17,9 @@ const BoardPreview = ({ boardData }) => {
         Created <strong>{DateTime.fromNow(createdAt)}</strong>
       </small>
       <small className="m--x-1 text--info">
-        <strong> {tasks.count}</strong> tasks
+        <strong> {tasks.count}</strong> task{tasks.count > 1 ? "s" : ""}
       </small>
-    </li>
+    </div>
   );
 };
 
