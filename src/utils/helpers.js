@@ -27,11 +27,42 @@ export class DateTime {
   }
 
   /**
+   * Return relative time to X
+   * @param {String} x
+   */
+  static timeToX(x) {
+    return dayjs().to(x);
+  }
+
+  /**
+   * Returns the difference between two date-time
+   * in the specified unit
+   * @param {String} date1
+   * @param {String} date2
+   * @param {String} unit
+   */
+  static diffInDates(date1, date2, unit = "day") {
+    date1 = dayjs(date1);
+    date2 = dayjs(date2);
+    return date1.diff(date2, unit);
+  }
+
+  /**
    * Converts date to ISO string
    * @param {String} dateString
    */
   static toIsoString(dateString) {
     return dayjs(dateString).toISOString();
+  }
+
+  /**
+   * Get the formatted date according to the string
+   * of tokens passed in
+   * @param {String} date
+   * @param {String} format
+   */
+  static formatDate(date, format) {
+    return dayjs(date).format(format);
   }
 }
 
