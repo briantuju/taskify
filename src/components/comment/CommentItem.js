@@ -32,7 +32,7 @@ const CommentItem = ({ commentData, onEllipsisClick }) => {
       <div className="comment__block-right">
         <span className="comment__user-name">
           {name.first}
-          {name.last ? name.last : ""}
+          {name.last ? ` ${name.last}` : ""}
         </span>
         <span
           className="comment__ellipsis"

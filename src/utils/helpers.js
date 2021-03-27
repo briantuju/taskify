@@ -152,3 +152,28 @@ export const extractFormData = (e) => {
 export const hardRedirectLocation = (location) => {
   window.location = location;
 };
+
+/**
+ * Calculates time difference between `dueDate` and
+ * `current time`, then determines what color to dislay.
+ * @param {String} dueDate
+ */
+export const getDueColor = (dueDate) => {
+  // Define variables
+  let color = "success";
+  const now = new Date();
+  const inMinutes = { day: 1440, hour: 60, halfHour: 30 };
+
+  // Get the difference in minutes
+  const diffInMinutes = DateTime.diffInDates(dueDate, now, "m");
+
+  // Determine the color to display
+  if (diffInMinutes >= inMinutes.day) {
+  } else if (diffInMinutes >= inMinutes.hour) {
+    color = "warn";
+  } else {
+    color = "danger";
+  }
+
+  return color;
+};

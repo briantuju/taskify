@@ -3,7 +3,11 @@ import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import { fetchData } from "../../utils/api";
 import { endpoints, pageUrls } from "../../utils/constants";
-import { DateTime, hardRedirectLocation } from "../../utils/helpers";
+import {
+  DateTime,
+  getDueColor,
+  hardRedirectLocation,
+} from "../../utils/helpers";
 import schemas, { objSchema } from "../../utils/schemas";
 import CheckBoxInput from "../formik/CheckBoxInput";
 import TextAreaInput from "../formik/TextAreaInput";
@@ -52,6 +56,10 @@ const TaskItem = ({ taskData }) => {
   // Destructure props
   const { title, description, done, _id } = taskData;
   const { boardData, createdAt, updatedAt, fields } = taskData;
+
+  // Get date due color
+  let color = "dark";
+  if (fields.dueDate) color = getDueColor(fields.dueDate);
 
   // Component state
   const [showDetails, setShowDetails] = useState(false);
@@ -109,8 +117,8 @@ const TaskItem = ({ taskData }) => {
               {/* Show `due in` if due date exists */}
               {fields.dueDate && (
                 <span className="d--block m--y-tiny">
-                  Due in{" "}
-                  <strong className="text--dark">
+                  Task due{" "}
+                  <strong className={`text--${color}`}>
                     {DateTime.timeToX(fields.dueDate)}
                   </strong>
                 </span>

@@ -4,7 +4,7 @@ import { endpoints, pageUrls } from "../utils/constants";
 import { Overlay, Spinner } from "../components/Loading";
 import { hardRedirectLocation } from "../utils/helpers";
 import { fetchData } from "../utils/api";
-import TaskCreate from "../components/task/TaskCreate";
+import TaskCreateModal from "../components/task/TaskCreateModal";
 import BoardItem from "../components/board/BoardItem";
 import BoardList from "../components/board/BoardList";
 import TaskList from "../components/task/TaskList";
@@ -64,9 +64,9 @@ const TasksDash = ({ id }) => {
         Add Task
       </Button>
 
-      {/* Create Board Modal */}
+      {/* Create Task Modal */}
       {showModal === true && (
-        <TaskCreate
+        <TaskCreateModal
           handleAddTask={createTask}
           message={newTask.msg}
           id={id}
