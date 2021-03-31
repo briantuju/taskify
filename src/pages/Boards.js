@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router";
+import { Alert } from "../components/Alerts";
 import { endpoints, pageUrls } from "../utils/constants";
 import { Overlay, Spinner } from "../components/Loading";
 import { hardRedirectLocation } from "../utils/helpers";
@@ -9,7 +10,6 @@ import BoardItem from "../components/board/BoardItem";
 import BoardList from "../components/board/BoardList";
 import TaskList from "../components/task/TaskList";
 import Button from "../components/formik/Button";
-import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
 const TasksDash = ({ id }) => {
@@ -46,7 +46,7 @@ const TasksDash = ({ id }) => {
   return (
     <>
       {loading && <Spinner />}
-      {error && <Alerts messages={msg} type="danger" />}
+      {error && <Alert messages={msg} type="danger" />}
 
       {data &&
         (data.data.length > 0 ? (
@@ -87,7 +87,7 @@ const Boards = () => {
     <div className="p--y-1 container">
       {error && (
         <div className="container p--2">
-          <Alerts messages={msg} type="danger" />
+          <Alert messages={msg} type="danger" />
         </div>
       )}
 
@@ -111,7 +111,7 @@ export const Board = () => {
     <div className="p--y-1 container">
       {error && (
         <div className="container p--2">
-          <Alerts messages={msg} type="danger" />
+          <Alert messages={msg} type="danger" />
         </div>
       )}
 

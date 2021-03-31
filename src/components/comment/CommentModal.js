@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Form, Formik } from "formik";
+import { Alert } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { endpoints } from "../../utils/constants";
 import schemas, { objSchema } from "../../utils/schemas";
 import TextAreaInput from "../formik/TextAreaInput";
 import ReactModal from "../ReactModal";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 const updateComment = async (values, commentId, setState) => {
   // Loading state is handled by formik.isSubmitting
@@ -75,8 +75,8 @@ const CommentModal = ({ toggle, initValues, reloadCb }) => {
 
             <TextAreaInput name="body" placeholder="Type a comment here..." />
 
-            {state.error && <Alerts messages={state.msg} type="danger" />}
-            {!state.error && state.msg && <Alerts messages={state.msg} />}
+            {state.error && <Alert messages={state.msg} type="danger" />}
+            {!state.error && state.msg && <Alert messages={state.msg} />}
 
             <div>
               {/* Update comment button */}

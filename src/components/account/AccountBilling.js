@@ -2,11 +2,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
+import { Alert } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { hardRedirectLocation } from "../../utils/helpers";
 import { endpoints, pageUrls } from "../../utils/constants";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 /**
  * Cancel the customer's current subscription
@@ -85,7 +85,7 @@ const AccountBilling = ({ billingData }) => {
                 <Form>
                   {/* Cancel Plan */}
                   {state.error && (
-                    <Alerts messages={state.errorMsg} type="danger" />
+                    <Alert messages={state.errorMsg} type="danger" />
                   )}
 
                   <Button

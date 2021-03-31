@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Link, Redirect, useLocation } from "react-router-dom";
+import { fetchData } from "../utils/api";
 import { useAuth } from "../context/auth";
+import { Alert } from "../components/Alerts";
 import { Overlay } from "../components/Loading";
 import { api, endpoints, pageUrls } from "../utils/constants";
 import useQueryParams from "../hooks/useQueryParams";
@@ -9,9 +11,7 @@ import ProductPlanList from "../components/product/ProductPlanList";
 import ProductCheckout from "../components/product/ProductCheckout";
 import ProductCTA from "../components/product/ProductCTA";
 import Button from "../components/formik/Button";
-import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
-import { fetchData } from "../utils/api";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -28,7 +28,7 @@ const PlansContainer = () => {
     <div className="p--y-2 container">
       <h1 className="h1">Product Plans</h1>
 
-      {error && <Alerts messages={error} type="danger" />}
+      {error && <Alert messages={error} type="danger" />}
 
       {loading && <Overlay />}
 
@@ -195,7 +195,7 @@ const UpgradePlan = ({ productId, plan }) => {
   return (
     <div className="container p--y-2">
       {/* Show messages/errors */}
-      {state.error && <Alerts messages={state.errorMsg} type="danger" />}
+      {state.error && <Alert messages={state.errorMsg} type="danger" />}
 
       <div className="d--flex-center shadow p--2 m--y-2">
         <span className="d--block m--y-1">

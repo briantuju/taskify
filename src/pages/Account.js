@@ -1,9 +1,9 @@
+import { Alert } from "../components/Alerts";
 import { endpoints } from "../utils/constants";
 import { Overlay } from "../components/Loading";
 import AccountSecurity from "../components/account/AccountSecurity";
 import AccountDetails from "../components/account/AccountDetails";
 import AccountBilling from "../components/account/AccountBilling";
-import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
 const Account = () => {
@@ -17,7 +17,7 @@ const Account = () => {
   if (error) {
     return (
       <div className="container p--2">
-        <Alerts messages={msg} type="danger" />
+        <Alert messages={msg} type="danger" />
       </div>
     );
   }

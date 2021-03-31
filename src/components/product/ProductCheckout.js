@@ -6,11 +6,11 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { Alert } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { pageUrls, endpoints } from "../../utils/constants";
 import { hardRedirectLocation } from "../../utils/helpers";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 const CheckoutForm = ({ checkoutObj, handleCheckout }) => {
   // Component state (Form State)
@@ -106,7 +106,7 @@ const CheckoutForm = ({ checkoutObj, handleCheckout }) => {
 
         {/* Display form errors */}
         {formState.errorMsg && (
-          <Alerts messages={formState.errorMsg} type="danger" />
+          <Alert messages={formState.errorMsg} type="danger" />
         )}
 
         <Button
@@ -120,7 +120,7 @@ const CheckoutForm = ({ checkoutObj, handleCheckout }) => {
 
       {/* Upgrade failed */}
       {/* <div className="m--y-2 bg--light text--center p--2">
-        <Alerts messages={["Plan Upgrade failed"]} type="danger" />
+        <Alert messages={["Plan Upgrade failed"]} type="danger" />
         <span className="d--block">You can try again after a few moments</span>
       </div> */}
     </>

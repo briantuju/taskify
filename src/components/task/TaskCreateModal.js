@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { Form, Formik } from "formik";
+import { Alert } from "../Alerts";
 import schemas, { objSchema } from "../../utils/schemas";
 import TextAreaInput from "../formik/TextAreaInput";
 import TextInput from "../formik/TextInput";
 import ReactModal from "../ReactModal";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 const TaskCreate = ({ handleAddTask, message, id, toggleVisibility }) => {
   return (
@@ -35,7 +35,7 @@ const TaskCreate = ({ handleAddTask, message, id, toggleVisibility }) => {
               placeholder="(Optional)"
             />
 
-            {message && <Alerts messages={message} />}
+            {message && <Alert messages={message} />}
 
             <Button
               type="submit"

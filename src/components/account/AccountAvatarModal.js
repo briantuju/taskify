@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Field, Form, Formik } from "formik";
+import { Alert } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { endpoints } from "../../utils/constants";
 import ReactModal from "../ReactModal";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 // Change the current account avatar
 const changeAvatar = async (file, setState) => {
@@ -102,8 +102,8 @@ const AccountAvatarModal = ({ toggle, initValues }) => {
               onChange={(event) => updatePreview(event, formik)}
             />
 
-            {state.error && <Alerts messages={state.msg} type="danger" />}
-            {!state.error && state.msg && <Alerts messages={state.msg} />}
+            {state.error && <Alert messages={state.msg} type="danger" />}
+            {!state.error && state.msg && <Alert messages={state.msg} />}
 
             <div className="p--y-1">
               {/* Change avatar button */}

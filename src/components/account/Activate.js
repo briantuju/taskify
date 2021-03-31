@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
+import { Alert } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { endpoints } from "../../utils/constants";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 /**
  * Api call to verify account
@@ -47,8 +47,8 @@ export default function Activate() {
               activation instructions or use the link below to send a new email
             </span>
 
-            {api.failed && <Alerts messages={api.msg} type="danger" />}
-            {api.status === 200 && <Alerts messages={api.msg} type="success" />}
+            {api.failed && <Alert messages={api.msg} type="danger" />}
+            {api.status === 200 && <Alert messages={api.msg} type="success" />}
 
             <Button
               type="submit"

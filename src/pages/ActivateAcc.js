@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useAuth } from "../context/auth";
+import { Alert } from "../components/Alerts";
 import { Spinner } from "../components/Loading";
 import { endpoints, pageUrls } from "../utils/constants";
 import { hardRedirectLocation } from "../utils/helpers";
 import useQueryParams from "../hooks/useQueryParams";
-import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
 const ActivateAcc = () => {
@@ -49,7 +49,7 @@ const ActivateAcc = () => {
             An error occured. We could not complete your account verification at
             this moment. Please try again later.
           </p>
-          <Alerts messages={msg || "An error occured"} type="danger" />
+          <Alert messages={msg || "An error occured"} type="danger" />
         </>
       )}
 

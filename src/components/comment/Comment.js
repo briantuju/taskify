@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { Alert } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { endpoints } from "../../utils/constants";
 import CommentCreate from "./CommentCreate";
 import CommentList from "./CommentList";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 const Comment = ({ resourceId, resourceName }) => {
   // Component state
@@ -34,7 +34,7 @@ const Comment = ({ resourceId, resourceName }) => {
   if (state.error) {
     return (
       <div className="container p--2">
-        <Alerts messages={state.msg} type="danger" />
+        <Alert messages={state.msg} type="danger" />
       </div>
     );
   }

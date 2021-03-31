@@ -2,14 +2,13 @@ import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchData } from "../utils/api";
+import { Alert, AlertDismissible } from "../components/Alerts";
 import { Overlay } from "../components/Loading";
 import { endpoints, pageUrls } from "../utils/constants";
 import schemas, { objSchema } from "../utils/schemas";
-import AlertDismissible from "../components/AlertDismissible";
 import TextInput from "../components/formik/TextInput";
 import useQueryParams from "../hooks/useQueryParams";
 import Button from "../components/formik/Button";
-import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
 // Display a link to request password reset
@@ -115,7 +114,7 @@ const ResetPwd = () => {
 
       {error && (
         <>
-          <Alerts messages={msg || ""} type="danger" /> <RequestReset />
+          <Alert messages={msg || ""} type="danger" /> <RequestReset />
         </>
       )}
 

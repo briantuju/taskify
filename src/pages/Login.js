@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Form, Formik } from "formik";
 import { Link, useLocation, Redirect } from "react-router-dom";
-import { endpoints, pageUrls } from "../utils/constants";
-import { useAuth } from "../context/auth";
 import { fetchData } from "../utils/api";
+import { useAuth } from "../context/auth";
+import { Alert } from "../components/Alerts";
+import { endpoints, pageUrls } from "../utils/constants";
 import schemas, { objSchema } from "../utils/schemas";
 import CheckBoxInput from "../components/formik/CheckBoxInput";
 import TextInput from "../components/formik/TextInput";
 import Button from "../components/formik/Button";
-import Alerts from "../components/Alerts";
 
 const Login = () => {
   // Get auth state
@@ -68,7 +68,7 @@ const Login = () => {
 
             <CheckBoxInput name="remember">Stay logged in</CheckBoxInput>
 
-            {error.exists && <Alerts messages={error.msg} type="danger" />}
+            {error.exists && <Alert messages={error.msg} type="danger" />}
 
             <Button
               type="submit"

@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import { useState } from "react";
 import { fetchData } from "../utils/api";
 import { useAuth } from "../context/auth";
+import { Alert } from "../components/Alerts";
 import { endpoints, pageUrls } from "../utils/constants";
 import { Overlay, Spinner } from "../components/Loading";
 import { hardRedirectLocation } from "../utils/helpers";
@@ -10,7 +11,6 @@ import BoardPreview from "../components/board/BoardPreview";
 import BoardCreate from "../components/board/BoardCreate";
 import Button from "../components/formik/Button";
 import Dashboard from "../components/Dashboard";
-import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
 const BoardsDash = () => {
@@ -45,7 +45,7 @@ const BoardsDash = () => {
   return (
     <>
       {loading && <Spinner />}
-      {error && <Alerts messages={msg} type="danger" />}
+      {error && <Alert messages={msg} type="danger" />}
 
       {data &&
         (data.data.length > 0 ? (
@@ -103,7 +103,7 @@ const Home = () => {
   if (error) {
     return (
       <div className="container p--2">
-        <Alerts messages={msg} type="danger" />
+        <Alert messages={msg} type="danger" />
       </div>
     );
   }

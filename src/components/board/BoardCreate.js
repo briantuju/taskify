@@ -1,11 +1,11 @@
 import { Form, Formik } from "formik";
 import PropTypes from "prop-types";
+import { Alert } from "../Alerts";
 import schemas, { objSchema } from "../../utils/schemas";
 import TextAreaInput from "../formik/TextAreaInput";
 import TextInput from "../formik/TextInput";
 import ReactModal from "../ReactModal";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 const BoardCreate = ({ message, handleAddBoard, toggleVisibility }) => {
   return (
@@ -29,7 +29,7 @@ const BoardCreate = ({ message, handleAddBoard, toggleVisibility }) => {
                 placeholder="(Optional)"
               />
 
-              {message && <Alerts messages={message} />}
+              {message && <Alert messages={message} />}
 
               <Button
                 type="submit"

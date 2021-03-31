@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Alert } from "../components/Alerts";
 import { Overlay } from "../components/Loading";
 import { endpoints, resourceNames } from "../utils/constants";
 import TaskDateTime from "../components/task/TaskDateTime";
 import Comment from "../components/comment/Comment";
 import TaskItem from "../components/task/TaskItem";
 import ShowHide from "../components/ShowHide";
-import Alerts from "../components/Alerts";
 import useApi from "../hooks/useApi";
 
 const TaskActions = () => {
@@ -50,7 +50,7 @@ const Tasks = () => {
     <div className="p--y-2 container">
       {error && (
         <div className="container p--2">
-          <Alerts messages={msg} type="danger" />
+          <Alert messages={msg} type="danger" />
         </div>
       )}
 

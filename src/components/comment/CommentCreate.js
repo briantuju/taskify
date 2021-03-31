@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Form, Formik } from "formik";
 import PropTypes from "prop-types";
+import { Alert } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { endpoints } from "../../utils/constants";
 import schemas, { objSchema } from "../../utils/schemas";
 import TextAreaInput from "../formik/TextAreaInput";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 const CommentCreate = ({ resourceId, resourceName, reloadCb }) => {
   // Component state
@@ -43,7 +43,7 @@ const CommentCreate = ({ resourceId, resourceName, reloadCb }) => {
             placeholder="Type a comment here..."
           />
 
-          {state.error && <Alerts messages={state.msg} type="danger" />}
+          {state.error && <Alert messages={state.msg} type="danger" />}
 
           <Button
             type="submit"

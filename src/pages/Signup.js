@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import { Link, Redirect } from "react-router-dom";
-import { endpoints, pageUrls } from "../utils/constants";
-import { useAuth } from "../context/auth";
 import { fetchData } from "../utils/api";
+import { useAuth } from "../context/auth";
+import { Alert } from "../components/Alerts";
+import { endpoints, pageUrls } from "../utils/constants";
 import schemas, { objSchema } from "../utils/schemas";
-import Alerts from "../components/Alerts";
-import Button from "../components/formik/Button";
 import TextInput from "../components/formik/TextInput";
+import Button from "../components/formik/Button";
 
 const Signup = () => {
   // Get auth state
@@ -70,7 +70,7 @@ const Signup = () => {
               placeholder="Password"
             />
 
-            {error.exists && <Alerts messages={error.msg} type="danger" />}
+            {error.exists && <Alert messages={error.msg} type="danger" />}
 
             <Button
               type="submit"

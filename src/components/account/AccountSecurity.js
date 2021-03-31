@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Formik } from "formik";
+import { Alert } from "../Alerts";
 import { endpoints, pageUrls } from "../../utils/constants";
 import { hardRedirectLocation } from "../../utils/helpers";
 import { AppStorage } from "../../utils/helpers";
@@ -7,7 +8,6 @@ import { fetchData } from "../../utils/api";
 import schemas, { objSchema } from "../../utils/schemas";
 import TextInput from "../formik/TextInput";
 import Button from "../formik/Button";
-import Alerts from "../Alerts";
 
 const options = {
   del: "deleteAccount",
@@ -89,7 +89,7 @@ const AccountSecurity = () => {
               type="password"
             />
 
-            {changeError && <Alerts messages={changeError} type="danger" />}
+            {changeError && <Alert messages={changeError} type="danger" />}
 
             <Button
               type="submit"
@@ -129,7 +129,7 @@ const AccountSecurity = () => {
 
             <TextInput placeholder="Password" name="password" type="password" />
 
-            {deleteError && <Alerts messages={deleteError} type="danger" />}
+            {deleteError && <Alert messages={deleteError} type="danger" />}
 
             <Button
               type="submit"

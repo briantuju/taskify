@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Alert, AlertDismissible } from "../Alerts";
 import { fetchData } from "../../utils/api";
 import { InlineDateTime } from "../DateTime";
 import { DateTime } from "../../utils/helpers";
 import { endpoints } from "../../utils/constants";
-import AlertDismissible from "../AlertDismissible";
 import Button from "../formik/Button";
 import ShowHide from "../ShowHide";
 import TaskDue from "./TaskDue";
-import Alerts from "../Alerts";
 
 const TaskDateTime = ({ data }) => {
   // Destructure data
@@ -93,7 +92,7 @@ const TaskDateTime = ({ data }) => {
 
           {state.error && state.msg && (
             <div className="m--y-1">
-              <Alerts messages={state.msg} type="danger" />
+              <Alert messages={state.msg} type="danger" />
             </div>
           )}
           {!state.error && state.msg && (
